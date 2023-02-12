@@ -88,8 +88,8 @@ public class JpaMain {
             /**
              * 더티체킹
              */
-            Member member = em.find(Member.class, 2L);
-            member.setName("dirtyCheck 테스트");
+          /*  Member member = em.find(Member.class, 2L);
+            member.setUsername("dirtyCheck 테스트");*/
 
             /**
              * 플러시발생 상황
@@ -104,26 +104,19 @@ public class JpaMain {
 
             System.out.println("===============================");
 
+
+            Member member = new Member();
+            member.setUsername("hello2");
+           // member.setId("1L");
+            member.setRoleType(RoleType.ADMIN);
+
+            em.persist(member);
             tx.commit();
-
-
         } catch (Exception e) {
 
         } finally {
             em.close();
         }
-
-
         emf.close(); //WAS 가 내려갈때 EntityManagerFactory를 닫아주어야한다.
-
-
-    }
-
-    static void basicMethod() {
-
-    }
-
-    static void persistenceContext() {
-
     }
 }
