@@ -8,6 +8,7 @@ public class Member {
     @Id
     private Long id;
     private String name;
+    private String gogo;
 
     public Member(Long id, String name) {
         this.id = id;
