@@ -15,95 +15,42 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            //Member findMember = em.find(Member.class,1L);
-/**
- *   Jpa basic Method
- *   회원등록, 회원 찾기, 회원 수정, 회원 삭제, 특정 회원 조회
- */
-        /*
-            //회원 등록
-            member.setId(2L);
-            member.setName("helloB");
-            em.persist(member); */
-          /*
-
-            //회원 찾기
-            System.out.println("id : " + findMember.getName());
-            System.out.println("name : " + findMember.getId());*/
-
             /*
-            //회원 수정
-            findMember.setName("HelloJPA");*/
-
-            /*
-            //회원 삭제
-            em.remove(findMember);*/
-
-            /*
-         // 특정 회원 조회
-            List<Member> result =em.createQuery("select m from Member as m", Member.class)
-                    .setFirstResult(5)
-                    .setMaxResults(8)
-                    .getResultList();
-
-            for(Member member : result){
-                System.out.println("member.name = " + member.getName());
-            }
-            */
+             //연관관계가 없음
+            //팀저장
+            Team team =new Team();
+            team.setName("TeamA");
+            em.persist(team);
+            //회원저장
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setTeamId(team.getId());
+            em.persist(member);
+            //조회
+            Member findMember = em.find(Member.class, member.getId());
 
 
-            /**
-             * 영속성 컨텍스트
-             * 1차캐시, 동일성보장, 쓰기 지연, 더티체킹, 지연 로딩
+            Long findTeamId = findMember.getTeamId();
+            Team findTeam = em.find(Team.class, findTeamId);
              */
 
-            /*
-            //비영속
-            Member member = new Member(102L,"HelloJPA")
+            //단방향 매핑
+            //팀저장
+            Team team =new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            System.out.println("=== BEFORE ===");
-            //영속(persis)
-           // em.persist(member);
-
-            //준영속(detach)
-           //  em.detach(member);
-            System.out.println("=== AFTER ===");
-
-            Member findMember2 = em.find(Member.class, 101L);
-            Member findMember3 = em.find(Member.class, 101L);
-            System.out.println("result = " +(findMember2 == findMember3));
-             */
-
-            /**
-             * 쓰기 지연
-             */
-        /*
-
-            Member member1 = new Member(150L, "A");
-            Member member2 = new Member(160L, "B");
-            em.persist(member1);
-            em.persist(member2);
-            System.out.println("==================================");
-            */
-            /**
-             * 더티체킹
-             */
-          /*  Member member = em.find(Member.class, 2L);
-            member.setUsername("dirtyCheck 테스트");*/
-
-            /**
-             * 플러시발생 상황
-             * 1. em.flush();
-             * 2. 트랜잭션 commit
-             * 3. 중간에 JPQL 실행 : 실제 SQL이 실행되기에
-             */
-           /* Member member = new Member(200L, "member200");
+            //회원저장
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setTeam(team);
             em.persist(member);
 
-            em.flush(); //insert 쿼리 실행*/
+            //조회
+            Member findMember = em.find(Member.class, member.getId());
 
-
-
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam =" + findTeam.getName());
 
 
             tx.commit();
