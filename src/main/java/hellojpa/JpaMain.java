@@ -102,15 +102,17 @@ public class JpaMain {
 
             em.flush(); //insert 쿼리 실행*/
 
-            System.out.println("===============================");
 
 
             Member member = new Member();
             member.setUsername("hello2");
-           // member.setId("1L");
             member.setRoleType(RoleType.ADMIN);
+            System.out.println("===============================");
 
             em.persist(member);
+            System.out.println("member.id = "+ member.getId());
+            System.out.println("===============================");
+
             tx.commit();
         } catch (Exception e) {
 

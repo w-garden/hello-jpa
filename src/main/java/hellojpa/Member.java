@@ -11,15 +11,23 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-//@SequenceGenerator(name="member_seq_generator", sequenceName = "member_seq")
-@TableGenerator(
-        name = "member_seq_generator",
-        table = "my_sequences",
-        pkColumnValue = "member_seq", allocationSize = 1
+@SequenceGenerator(name="member_seq_generator",
+        sequenceName = "member_seq",
+        initialValue = 1, allocationSize = 1
 )
+//@TableGenerator(
+//        name = "member_seq_generator",
+//        table = "my_sequences",
+//        pkColumnValue = "member_seq", allocationSize = 1
+//)
 public class Member {
-    @Id @GeneratedValue(strategy = GenerationType.TABLE,
-            generator = "member_seq_generator")
+    /**
+     * 권장 식별자 전략
+     * LONG 형 + 대체키 + 키 생성 전략 사용
+     */
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE
+            ,generator = "member_seq_generator"
+    )
     private Long id;
     @Column(name = "name", nullable = false)
     private String username;
