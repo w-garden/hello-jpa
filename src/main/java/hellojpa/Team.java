@@ -19,4 +19,9 @@ public class Team {
 
     @OneToMany(mappedBy = "team") //Team에서 Member로는 1:다
     List<Member> members = new ArrayList<>();
+
+    public void addMember(Member member){
+        member.setTeam(this);
+        members.add(member);
+    }
 }

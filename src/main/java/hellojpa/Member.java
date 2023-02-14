@@ -25,4 +25,9 @@ public class Member {
     @Column(name = "USERNAME")
     private String username;
 
-}
+//    public void changeTeam(Team team) { //연관관계 편의 메서드
+//        this.team=team;
+//        team.getMembers().add(this);
+//    }
+
+  }

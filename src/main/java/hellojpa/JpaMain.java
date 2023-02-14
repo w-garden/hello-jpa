@@ -35,7 +35,8 @@ public class JpaMain {
             Team findTeam = em.find(Team.class, findTeamId);
              */
 
-            //단방향 매핑
+            //양방향 매핑 : 연관관계의 주인에 값 설정
+            //권장사항 : 양쪽에 값 설정을 다 하자 -> 연관관계 편의 메서드로 처리
             //팀저장
             Team team =new Team();
             team.setName("TeamA");
@@ -44,11 +45,12 @@ public class JpaMain {
             //회원저장
             Member member = new Member();
             member.setUsername("member1");
-            member.setTeam(team);
+//            member.changeTeam(team); //team 값설정  -> 연관관계 편의 메서드로 처리
             em.persist(member);
-
-            em.flush();
-            em.clear();
+//            team.getMembers().add(member); //member 값설정 -> 연관관계 편의 메서드로 처리
+            team.addMember(member);
+//            em.flush();
+//            em.clear();
 
             //조회(양방향 조회)
             Member findMember = em.find(Member.class, member.getId());
@@ -56,13 +58,19 @@ public class JpaMain {
             //Member -> Team
             Team findTeam = findMember.getTeam();
             System.out.println("findTeam =" + findTeam.getName());
-
+            System.out.println("=========================");
+            Team findTeam2 = em.find(Team.class, team.getId());
+            List<Member> members2 = findTeam2.getMembers();
+            for (Member m2 : members2) {
+                System.out.println("m2 = " + m2.getUsername());
+            }
+            System.out.println("=========================");
             //Team -> Member
             List<Member> members = findMember.getTeam().getMembers();
             for (Member m : members) {
                 System.out.println("m = " + m.getUsername());
             }
-
+            System.out.println("=========================");
 
             tx.commit();
         } catch (Exception e) {
