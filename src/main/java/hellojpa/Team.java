@@ -24,4 +24,14 @@ public class Team {
         member.setTeam(this);
         members.add(member);
     }
+
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", members=" + members +
+                '}';
+    }
 }
