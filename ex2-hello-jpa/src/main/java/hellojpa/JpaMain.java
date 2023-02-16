@@ -38,6 +38,8 @@ public class JpaMain {
             //양방향 매핑 : 연관관계의 주인에 값 설정
             //권장사항 : 양쪽에 값 설정을 다 하자 -> 연관관계 편의 메서드로 처리
             //팀저장
+
+            /*
             Team team =new Team();
             team.setName("TeamA");
             em.persist(team);
@@ -71,7 +73,20 @@ public class JpaMain {
                 System.out.println("m = " + m.getUsername());
             }
             System.out.println("=========================");
+*/
 
+
+
+            // 1 : 다 연관관계
+
+            Member member = saveMember(em);
+
+            Team team = new Team();
+            team.setName("teamA");
+
+            team.getMembers().add(member);
+
+            em.persist(team);
             tx.commit();
         } catch (Exception e) {
 
@@ -79,5 +94,12 @@ public class JpaMain {
             em.close();
         }
         emf.close(); //WAS 가 내려갈때 EntityManagerFactory를 닫아주어야한다.
+    }
+
+    private static Member saveMember(EntityManager em) {
+        Member member = new Member();
+        member.setUsername("member1");
+        em.persist(member);
+        return member;
     }
 }

@@ -18,9 +18,9 @@ public class Member {
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
 
-    @ManyToOne //Member입장에서 Many, Team입장에서 one
-    @JoinColumn(name="TEAM_ID")
-    private Team team;
+//    @ManyToOne //Member입장에서 Many, Team입장에서 one
+//    @JoinColumn(name="TEAM_ID")
+//    private Team team;
 
     @Column(name = "USERNAME")
     private String username;
@@ -31,12 +31,4 @@ public class Member {
 //    }
 
 
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", team=" + team +
-                ", username='" + username + '\'' +
-                '}';
-    }
 }
