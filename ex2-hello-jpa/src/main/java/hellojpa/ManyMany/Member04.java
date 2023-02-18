@@ -15,7 +15,7 @@ import java.util.List;
  * 일대다, 다대일 관계로 풀어내야함
  *
  */
-@Entity
+//@Entity
 @Getter
 @Setter
 public class Member04 {

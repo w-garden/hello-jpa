@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -19,20 +18,20 @@ public class JpaMain {
             /*
              //연관관계가 없음
             //팀저장
-            Team team =new Team();
+            Team01 team =new Team01();
             team.setName("TeamA");
             em.persist(team);
             //회원저장
-            Member member = new Member();
+            Member01 member = new Member01();
             member.setUsername("member1");
             member.setTeamId(team.getId());
             em.persist(member);
             //조회
-            Member findMember = em.find(Member.class, member.getId());
+            Member01 findMember = em.find(Member01.class, member.getId());
 
 
             Long findTeamId = findMember.getTeamId();
-            Team findTeam = em.find(Team.class, findTeamId);
+            Team01 findTeam = em.find(Team01.class, findTeamId);
              */
 
             //양방향 매핑 : 연관관계의 주인에 값 설정
@@ -40,12 +39,12 @@ public class JpaMain {
             //팀저장
 
             /*
-            Team team =new Team();
+            Team01 team =new Team01();
             team.setName("TeamA");
             em.persist(team);
 
             //회원저장
-            Member member = new Member();
+            Member01 member = new Member01();
             member.setUsername("member1");
 //            member.changeTeam(team); //team 값설정  -> 연관관계 편의 메서드로 처리
             em.persist(member);
@@ -55,21 +54,21 @@ public class JpaMain {
 //            em.clear();
 
             //조회(양방향 조회)
-            Member findMember = em.find(Member.class, member.getId());
+            Member01 findMember = em.find(Member01.class, member.getId());
 
-            //Member -> Team
-            Team findTeam = findMember.getTeam();
+            //Member01 -> Team01
+            Team01 findTeam = findMember.getTeam01();
             System.out.println("findTeam =" + findTeam.getName());
             System.out.println("=========================");
-            Team findTeam2 = em.find(Team.class, team.getId());
-            List<Member> members2 = findTeam2.getMembers();
-            for (Member m2 : members2) {
+            Team01 findTeam2 = em.find(Team01.class, team.getId());
+            List<Member01> members2 = findTeam2.getMembers();
+            for (Member01 m2 : members2) {
                 System.out.println("m2 = " + m2.getUsername());
             }
             System.out.println("=========================");
-            //Team -> Member
-            List<Member> members = findMember.getTeam().getMembers();
-            for (Member m : members) {
+            //Team01 -> Member01
+            List<Member01> members = findMember.getTeam01().getMembers();
+            for (Member01 m : members) {
                 System.out.println("m = " + m.getUsername());
             }
             System.out.println("=========================");
@@ -79,9 +78,9 @@ public class JpaMain {
 
             // 1 : 다 연관관계
 
-            Member member = saveMember(em);
+            Member01 member = saveMember(em);
 
-            Team team = new Team();
+            Team01 team = new Team01();
             team.setName("teamA");
 
             team.getMembers().add(member);
@@ -98,8 +97,8 @@ public class JpaMain {
         emf.close(); //WAS 가 내려갈때 EntityManagerFactory를 닫아주어야한다.
     }
 
-    private static Member saveMember(EntityManager em) {
-        Member member = new Member();
+    private static Member01 saveMember(EntityManager em) {
+        Member01 member = new Member01();
         member.setUsername("member1");
         em.persist(member);
         return member;

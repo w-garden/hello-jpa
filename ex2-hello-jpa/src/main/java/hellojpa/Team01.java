@@ -10,7 +10,7 @@ import java.util.List;
 //@Entity
 @Getter
 @Setter
-public class  Team {
+public class Team01 {
 
     @Id @GeneratedValue
     @Column(name="TEAM_ID")
@@ -18,14 +18,14 @@ public class  Team {
     private String name;
 
 //    @OneToMany(mappedBy = "team") //Team에서 Member로는 1:다
-//    List<Member> members = new ArrayList<>();
+//    List<Member01> members = new ArrayList<>();
 
     @OneToMany
     @JoinColumn(name="TEAM_ID") //추가안하면 JoinTable 전략으로 진행됨
-    List<Member> members = new ArrayList<>();
+    List<Member01> members = new ArrayList<>();
 
-//    public void addMember(Member member){
-//        member.setTeam(this);
+//    public void addMember(Member01 member){
+//        member.setTeam01(this);
 //        members.add(member);
 //    }
 

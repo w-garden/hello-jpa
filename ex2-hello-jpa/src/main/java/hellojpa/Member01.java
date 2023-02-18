@@ -8,7 +8,7 @@ import javax.persistence.*;
 //@Entity
 @Getter
 @Setter
-public class Member {
+public class Member01 {
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
@@ -20,19 +20,19 @@ public class Member {
 
 //    @ManyToOne //Member입장에서 Many, Team입장에서 one
 //    @JoinColumn(name="TEAM_ID")
-//    private Team team;
+//    private Team01 team01;
 
     @ManyToOne //일대다 매핑일때 읽기전용으로 사용하기 위해
     @JoinColumn(name="TEAM_ID",insertable = false, updatable = false)
-    private Team team;
+    private Team01 team01;
 
 
     @Column(name = "USERNAME")
     private String username;
 
-//    public void changeTeam(Team team) { //연관관계 편의 메서드
-//        this.team=team;
-//        team.getMembers().add(this);
+//    public void changeTeam(Team01 team01) { //연관관계 편의 메서드
+//        this.team01=team01;
+//        team01.getMembers().add(this);
 //    }
 
 
