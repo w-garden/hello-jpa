@@ -75,7 +75,7 @@ public class JpaMain {
             System.out.println("=========================");
 */
 
-
+/*
 
             // 1 : 다 연관관계
 
@@ -87,6 +87,8 @@ public class JpaMain {
             team.getMembers().add(member);
 
             em.persist(team);
+
+            */
             tx.commit();
         } catch (Exception e) {
 

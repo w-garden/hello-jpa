@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
+//@Entity
 @Getter
 @Setter
 public class Member {
@@ -21,6 +21,11 @@ public class Member {
 //    @ManyToOne //Member입장에서 Many, Team입장에서 one
 //    @JoinColumn(name="TEAM_ID")
 //    private Team team;
+
+    @ManyToOne //일대다 매핑일때 읽기전용으로 사용하기 위해
+    @JoinColumn(name="TEAM_ID",insertable = false, updatable = false)
+    private Team team;
+
 
     @Column(name = "USERNAME")
     private String username;
