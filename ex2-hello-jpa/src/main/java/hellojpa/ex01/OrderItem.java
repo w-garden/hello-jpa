@@ -2,7 +2,6 @@ package hellojpa.ex01;
 
 import javax.persistence.*;
 
-@Entity
 public class OrderItem {
     @Id @GeneratedValue
     private Long id;

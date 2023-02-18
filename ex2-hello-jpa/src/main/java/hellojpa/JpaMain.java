@@ -18,20 +18,20 @@ public class JpaMain {
             /*
              //연관관계가 없음
             //팀저장
-            Team01 team =new Team01();
+            Team02 team =new Team02();
             team.setName("TeamA");
             em.persist(team);
             //회원저장
-            Member01 member = new Member01();
+            Member02 member = new Member02();
             member.setUsername("member1");
             member.setTeamId(team.getId());
             em.persist(member);
             //조회
-            Member01 findMember = em.find(Member01.class, member.getId());
+            Member02 findMember = em.find(Member02.class, member.getId());
 
 
             Long findTeamId = findMember.getTeamId();
-            Team01 findTeam = em.find(Team01.class, findTeamId);
+            Team02 findTeam = em.find(Team02.class, findTeamId);
              */
 
             //양방향 매핑 : 연관관계의 주인에 값 설정
@@ -39,12 +39,12 @@ public class JpaMain {
             //팀저장
 
             /*
-            Team01 team =new Team01();
+            Team02 team =new Team02();
             team.setName("TeamA");
             em.persist(team);
 
             //회원저장
-            Member01 member = new Member01();
+            Member02 member = new Member02();
             member.setUsername("member1");
 //            member.changeTeam(team); //team 값설정  -> 연관관계 편의 메서드로 처리
             em.persist(member);
@@ -54,21 +54,21 @@ public class JpaMain {
 //            em.clear();
 
             //조회(양방향 조회)
-            Member01 findMember = em.find(Member01.class, member.getId());
+            Member02 findMember = em.find(Member02.class, member.getId());
 
-            //Member01 -> Team01
-            Team01 findTeam = findMember.getTeam01();
+            //Member02 -> Team02
+            Team02 findTeam = findMember.getTeam01();
             System.out.println("findTeam =" + findTeam.getName());
             System.out.println("=========================");
-            Team01 findTeam2 = em.find(Team01.class, team.getId());
-            List<Member01> members2 = findTeam2.getMembers();
-            for (Member01 m2 : members2) {
+            Team02 findTeam2 = em.find(Team02.class, team.getId());
+            List<Member02> members2 = findTeam2.getMembers();
+            for (Member02 m2 : members2) {
                 System.out.println("m2 = " + m2.getUsername());
             }
             System.out.println("=========================");
-            //Team01 -> Member01
-            List<Member01> members = findMember.getTeam01().getMembers();
-            for (Member01 m : members) {
+            //Team02 -> Member02
+            List<Member02> members = findMember.getTeam01().getMembers();
+            for (Member02 m : members) {
                 System.out.println("m = " + m.getUsername());
             }
             System.out.println("=========================");
@@ -78,9 +78,9 @@ public class JpaMain {
 
             // 1 : 다 연관관계
 
-            Member01 member = saveMember(em);
+            Member02 member = saveMember(em);
 
-            Team01 team = new Team01();
+            Team02 team = new Team02();
             team.setName("teamA");
 
             team.getMembers().add(member);
@@ -97,8 +97,8 @@ public class JpaMain {
         emf.close(); //WAS 가 내려갈때 EntityManagerFactory를 닫아주어야한다.
     }
 
-    private static Member01 saveMember(EntityManager em) {
-        Member01 member = new Member01();
+    private static Member00 saveMember(EntityManager em) {
+        Member00 member = new Member00();
         member.setUsername("member1");
         em.persist(member);
         return member;
