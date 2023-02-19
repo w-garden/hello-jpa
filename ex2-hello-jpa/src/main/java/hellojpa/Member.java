@@ -12,7 +12,7 @@ import javax.persistence.*;
 //@Entity
 @Getter
 @Setter
-public class Member00 {
+public class Member {
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;

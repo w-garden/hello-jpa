@@ -8,7 +8,6 @@ import javax.persistence.*;
 /**
  * 일대다 매핑관계
  */
-@Entity
 @Getter
 @Setter
 public class Member02 {

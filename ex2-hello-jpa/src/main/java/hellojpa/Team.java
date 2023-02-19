@@ -11,7 +11,7 @@ import java.util.List;
 //@Entity
 @Getter
 @Setter
-public class Team00 {
+public class Team {
 
     @Id @GeneratedValue
     @Column(name="TEAM_ID")
@@ -25,10 +25,6 @@ public class Team00 {
     @JoinColumn(name="TEAM_ID") //추가안하면 JoinTable 전략으로 진행됨
     List<Member01> members = new ArrayList<>();
 
-//    public void addMember(Member02 member){
-//        member.setTeam01(this);
-//        members.add(member);
-//    }
 
 
 }

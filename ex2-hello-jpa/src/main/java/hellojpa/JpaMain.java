@@ -1,5 +1,8 @@
 package hellojpa;
 
+import hellojpa.inheritance.Item;
+import hellojpa.inheritance.Movie;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -88,6 +91,25 @@ public class JpaMain {
             em.persist(team);
 
             */
+
+
+            /**
+             * 상속관계
+             */
+            Movie movie = new Movie();
+            movie.setDirector("감독1");
+            movie.setActor("배우1");
+            movie.setName("바람과 함께 사라지다");
+            movie.setPrice(10000);
+            em.persist(movie);
+
+            em.flush();
+            em.clear();
+
+//            Movie findMovie = em.find(Movie.class, movie.getId());
+           Item item = em.find(Item.class, movie.getId());
+            System.out.println("item = "+ item);
+
             tx.commit();
         } catch (Exception e) {
 
@@ -97,8 +119,8 @@ public class JpaMain {
         emf.close(); //WAS 가 내려갈때 EntityManagerFactory를 닫아주어야한다.
     }
 
-    private static Member00 saveMember(EntityManager em) {
-        Member00 member = new Member00();
+    private static Member saveMember(EntityManager em) {
+        Member member = new Member();
         member.setUsername("member1");
         em.persist(member);
         return member;
