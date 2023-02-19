@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.time.LocalDateTime;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -96,7 +97,7 @@ public class JpaMain {
             /**
              * 상속관계
              */
-            Movie movie = new Movie();
+           /* Movie movie = new Movie();
             movie.setDirector("감독1");
             movie.setActor("배우1");
             movie.setName("바람과 함께 사라지다");
@@ -108,7 +109,15 @@ public class JpaMain {
 
 //            Movie findMovie = em.find(Movie.class, movie.getId());
            Item item = em.find(Item.class, movie.getId());
-            System.out.println("item = "+ item);
+            System.out.println("item = "+ item);*/
+
+            /**
+             * @MappedSuperclass 사용하기
+             */
+            Member member = new Member();
+            member.setUsername("user1");
+            member.setCreatedBy("SHIN");
+            member.setCreateDate(LocalDateTime.now());
 
             tx.commit();
         } catch (Exception e) {

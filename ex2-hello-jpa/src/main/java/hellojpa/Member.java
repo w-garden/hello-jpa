@@ -5,14 +5,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * 다대일 매핑관계
  */
-//@Entity
+@Entity
 @Getter
 @Setter
-public class Member {
+public class Member extends BaseEntity {
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
@@ -28,7 +29,7 @@ public class Member {
 
     @ManyToOne //일대다 매핑일때 읽기전용으로 사용하기 위해
     @JoinColumn(name="TEAM_ID",insertable = false, updatable = false)
-    private Team01 team01;
+    private Team team;
 
 
     @Column(name = "USERNAME")
@@ -38,6 +39,5 @@ public class Member {
 //        this.team01=team01;
 //        team01.getMembers().add(this);
 //    }
-
 
 }
