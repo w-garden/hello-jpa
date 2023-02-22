@@ -27,8 +27,7 @@ public class Member extends BaseEntity {
 //    @JoinColumn(name="TEAM_ID")
 //    private Team02 team01;
 
-    @ManyToOne //일대다 매핑일때 읽기전용으로 사용하기 위해
-    @JoinColumn(name="TEAM_ID",insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Team team;
 
 
