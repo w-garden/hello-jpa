@@ -71,10 +71,13 @@ public class JpaMain {
 
             /**
              * 임베디드 타입 사용하기
+             * 0. 임베디드 타입은 값타입이다
              * 1. 임베디드 타입은 엔티티의 값일 뿐이다
              * 2. 임베디드 타입을 사용해도 매핑하는 테이블은 같다.
              */
-            embedded(em);
+//            embedded(em);
+
+            valueTypeShare(em);
 
 
 //            printMember(member);
@@ -86,6 +89,25 @@ public class JpaMain {
             em.close();
         }
         emf.close(); //WAS 가 내려갈때 EntityManagerFactory 를 닫아주어야한다.
+    }
+
+    private static void valueTypeShare(EntityManager em) {
+        Address address = new Address("city","street","10000");
+        hellojpa.valueTypeShare.Member member1 = new hellojpa.valueTypeShare.Member();
+        member1.setUsername("member1");
+        member1.setHomeAddress(address);
+        em.persist(member1);
+
+        Address newAddress = new Address("서울", address.getStreet(), address.getZipcode());  // 해결책 : 새롭게 객체를 만들어야함
+
+
+        hellojpa.valueTypeShare.Member member2 = new hellojpa.valueTypeShare.Member();
+        member2.setUsername("member2");
+        member2.setHomeAddress(newAddress);
+        em.persist(member2);
+
+//      member1.getHomeAddress().setCity("newCity"); //member1,member2의 값 모두 변경된다--> Entity에서 Setter를 제거함
+        em.persist(member1);
     }
 
     private static void embedded(EntityManager em) {
