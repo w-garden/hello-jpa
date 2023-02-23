@@ -18,7 +18,7 @@ import java.util.List;
 //@Entity
 @Getter
 @Setter
-public class Member04 {
+public class Member {
     @Id @GeneratedValue
     @Column(name="MEMBER_ID")
     private Long id;

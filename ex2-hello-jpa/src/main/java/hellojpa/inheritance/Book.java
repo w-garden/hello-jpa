@@ -6,7 +6,6 @@ import lombok.Setter;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-@Entity
 @DiscriminatorValue("B") //DTYPE value값 설정
 @Getter
 @Setter

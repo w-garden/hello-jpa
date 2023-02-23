@@ -10,7 +10,7 @@ import java.util.List;
 //@Entity
 @Getter
 @Setter
-public class Team01 {
+public class Team {
 
     @Id @GeneratedValue
     @Column(name="TEAM_ID")
@@ -18,10 +18,10 @@ public class Team01 {
     private String name;
 
     @OneToMany(mappedBy = "team") //Team에서 Member로는 1:다
-    List<Member01> members = new ArrayList<>();
+    List<Member> members = new ArrayList<>();
 
 
-    public void addMember(Member01 member){
+    public void addMember(Member member){
         member.setTeam(this);
         members.add(member);
     }

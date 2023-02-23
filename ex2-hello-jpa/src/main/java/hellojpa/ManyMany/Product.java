@@ -18,5 +18,5 @@ public class Product {
     private String name;
 
     @ManyToMany(mappedBy = "products")
-    private List<Member04> members = new ArrayList<>();
+    private List<Member> members = new ArrayList<>();
 }

@@ -18,6 +18,6 @@ public class Locker {
     private String name;
 
     @OneToOne(mappedBy = "locker") //읽기 전용이됨
-    private Member03 member;
+    private Member member;
 
 }

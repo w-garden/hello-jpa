@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Team02 {
+public class Team {
 
     @Id @GeneratedValue
     @Column(name="TEAM_ID")
@@ -18,6 +18,6 @@ public class Team02 {
 
     @OneToMany
     @JoinColumn(name="TEAM_ID") //추가안하면 JoinTable 전략으로 진행됨
-    List<Member02> members = new ArrayList<>();
+    List<Member> members = new ArrayList<>();
 
 }
