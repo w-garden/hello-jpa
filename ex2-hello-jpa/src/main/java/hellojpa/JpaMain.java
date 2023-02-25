@@ -77,7 +77,16 @@ public class JpaMain {
              */
 //            embedded(em);
 
-            valueTypeShare(em);
+          //  값타입공유(em);
+
+
+            /**
+             * value 타입의 비교는 equals를 override해서 사용해야 한다.
+             */
+//            값타입비교();
+
+
+
 
 
 //            printMember(member);
@@ -91,7 +100,18 @@ public class JpaMain {
         emf.close(); //WAS 가 내려갈때 EntityManagerFactory 를 닫아주어야한다.
     }
 
-    private static void valueTypeShare(EntityManager em) {
+    private static void 값타입비교() {
+        int a =10;
+        int b =10;
+        System.out.println("a == b :"+(a==b));
+
+        Address address1 = new Address("city", "street", "10000");
+        Address address2 = new Address("city", "street", "10000");
+        System.out.println("address1 == address2 : " + (address1 == address2));
+        System.out.println("address1 equals address2 :" + (address1.equals(address2)));
+    }
+
+    private static void 값타입공유(EntityManager em) {
         Address address = new Address("city","street","10000");
         hellojpa.valueTypeShare.Member member1 = new hellojpa.valueTypeShare.Member();
         member1.setUsername("member1");
