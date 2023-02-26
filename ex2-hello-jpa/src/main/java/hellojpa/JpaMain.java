@@ -15,6 +15,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
+
 public class JpaMain {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");  //EntityManagerFactory은 애플리케이션당 1개만 있어야함.
@@ -87,6 +89,19 @@ public class JpaMain {
 
 
 
+            /**
+             * 값타입 컬렉션의 제약사항
+             * 1. 값타입 엔티티는 식별자 개념이 없다-> 추적이 어렵다.
+             * 2. 값 타입 컬렉션에 변경 사항이 발생하면, 주인 엔티티와 연관된
+             * 모든 데이터를 삭제하고, 값 타입 컬렉션에 있는 현재 값을 모두
+             * 다시 저장한다.
+             * 3. 값 타입 컬렉션을 매핑하는 테이블은 모든 컬럼을 묶어서 기본
+             * 키를 구성해야 함: null 입력X, 중복 저장X
+             *
+             * 실무에서의 대안 : 일대다 관계를 고려
+             *  - 일대다 관계를 위한 엔티티 만들고, 여기에서 값 타입 사용
+             */
+//            값타입컬렉션제약사항(em);
 
 
 //            printMember(member);
@@ -98,6 +113,46 @@ public class JpaMain {
             em.close();
         }
         emf.close(); //WAS 가 내려갈때 EntityManagerFactory 를 닫아주어야한다.
+    }
+
+    private static void 값타입컬렉션제약사항(EntityManager em) {
+        hellojpa.값타입컬렉션.Member member = new hellojpa.값타입컬렉션.Member();
+        member.setUsername("member1");
+        member.setHomeAddress(new Address("homeCity", "street", "123456"));
+
+        member.getFavoriteFoods().add("치킨");
+        member.getFavoriteFoods().add("족발");
+        member.getFavoriteFoods().add("피자");
+
+        member.getAddressHistory().add(new Address("old1", "street", "123456"));
+        member.getAddressHistory().add(new Address("old2", "street", "123456"));
+
+        em.persist(member);
+
+        em.flush();
+        em.clear();
+        System.out.println("====================START================");
+        hellojpa.값타입컬렉션.Member findMember = em.find(hellojpa.값타입컬렉션.Member.class, member.getId());
+
+        List<Address> addressHistory = findMember.getAddressHistory();
+        for (Address address : addressHistory) {
+            System.out.println("address.getCity() = " + address.getCity());
+        }
+        Set<String> favoriteFoods = findMember.getFavoriteFoods();
+        for (String favoriteFood : favoriteFoods) {
+            System.out.println("favoriteFood = " + favoriteFood);
+        }
+        Address a = findMember.getHomeAddress();
+        findMember.setHomeAddress(new Address("newCity", a.getStreet(), a.getZipcode()));
+
+
+        //치킨 -> 한식
+        findMember.getFavoriteFoods().remove("치킨");
+        findMember.getFavoriteFoods().add("한식");
+
+        //주소 바꾸기
+        findMember.getAddressHistory().remove(new Address("old1", "street", "123456"));
+        findMember.getAddressHistory().add(new Address("newCity1", "street", "123456"));
     }
 
     private static void 값타입비교() {
@@ -113,7 +168,7 @@ public class JpaMain {
 
     private static void 값타입공유(EntityManager em) {
         Address address = new Address("city","street","10000");
-        hellojpa.valueTypeShare.Member member1 = new hellojpa.valueTypeShare.Member();
+        hellojpa.값타입.Member member1 = new hellojpa.값타입.Member();
         member1.setUsername("member1");
         member1.setHomeAddress(address);
         em.persist(member1);
@@ -121,7 +176,7 @@ public class JpaMain {
         Address newAddress = new Address("서울", address.getStreet(), address.getZipcode());  // 해결책 : 새롭게 객체를 만들어야함
 
 
-        hellojpa.valueTypeShare.Member member2 = new hellojpa.valueTypeShare.Member();
+        hellojpa.값타입.Member member2 = new hellojpa.값타입.Member();
         member2.setUsername("member2");
         member2.setHomeAddress(newAddress);
         em.persist(member2);

@@ -1,4 +1,4 @@
-package hellojpa.valueTypeShare;
+package hellojpa.값타입;
 
 import hellojpa.embedded.Address;
 import hellojpa.embedded.Period;
@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
 @Getter
 @Setter
 public class Member  {
