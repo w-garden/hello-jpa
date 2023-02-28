@@ -17,12 +17,17 @@ public class Main {
 //            Criteria_기본(em);
 //            NativeSQL(em);
 
-            for(int i =0; i<100; i++){
-                Member member = new Member();
-                member.setUsername("member"+i);
-                member.setAge(i);
-                em.persist(member);
-            }
+            Team team =new Team();
+            team.setName("teamA");
+            em.persist(team);
+
+            Member member = new Member();
+            member.setUsername("teamA");
+            member.setAge(10);
+
+            member.setTeam(team);
+            member.setType(MemberType.ADMIN);
+            em.persist(member);
 
             em.flush();
             em.clear();
@@ -45,14 +50,17 @@ public class Main {
              * 1. setFirstResult()
              * 2. setMaxResult
              */
-            List<Member> result = em.createQuery("select m from Member m order by m.age desc", Member.class)
-                    .setFirstResult(10)
-                    .setMaxResults(20)
-                    .getResultList();
-            System.out.println("result.size = " + result.size());
-            for (Member member1 : result) {
-                System.out.println("member1 = " + member1);
-            }
+//            페이징(em);
+            /**
+             * 조인
+             * 1. 내부조인 : SELECT m FROM Member m [INNER] JOIN m.team t
+             * 2. 외부조인 : SELECT m FROM Member m LEFT JOIN m.team t
+             * 3. 세타조인 : SELECT count(m) from Member m, Team t where m.username = t.name
+             */
+
+
+//            조인(em);
+//            JPQL타입표현_ENUM(em);
 
             tx.commit();
         }catch (Exception e){
@@ -61,6 +69,45 @@ public class Main {
             em.close();
         }
         emf.close();
+    }
+
+    private static void JPQL타입표현_ENUM(EntityManager em) {
+        String query = "select m.username, 'HELLO', true From Member m where m.type=:userType";
+        List<Object[]> result = em.createQuery(query)
+                .setParameter("userType",MemberType.ADMIN)
+                .getResultList();
+        for (Object[] objects : result) {
+            System.out.println("objects[0] = " + objects[0]);
+            System.out.println("objects[0] = " + objects[1]);
+            System.out.println("objects[0] = " + objects[2]);
+
+        }
+    }
+
+    private static void 조인(EntityManager em) {
+        //내부조인
+        String qlString1 = "select m from Member m inner join m.team t";
+        //외부조인
+        String qlString2 = "select m from Member m, Team t where m.username=t.name";
+        //ON 절을 이용한 조인
+        String qlString3 = "select m from Member m left join m.team t on t.name='teamA'";
+        //연관관계 없는 외부 조인
+        String qlString4 = "select m from Member m left join Team t on m.username=t.name";
+
+        List<Member> result = em.createQuery(qlString4, Member.class)
+                .getResultList();
+        System.out.println("result.size() = " + result.size());
+    }
+
+    private static void 페이징(EntityManager em) {
+        List<Member> result = em.createQuery("select m from Member m order by m.age desc", Member.class)
+                .setFirstResult(10)
+                .setMaxResults(20)
+                .getResultList();
+        System.out.println("result.size = " + result.size());
+        for (Member member1 : result) {
+            System.out.println("member1 = " + member1);
+        }
     }
 
     private static void 프로젝션(EntityManager em) {
