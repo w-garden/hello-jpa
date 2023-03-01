@@ -6,6 +6,10 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
+@NamedQuery(
+        name="Member.findByUsername",
+        query = "select m from Member m where m.username=:username"
+)
 @Getter
 @Setter
 public class Member {
@@ -29,10 +33,9 @@ public class Member {
     }
     @Override
     public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", age=" + age +
-                '}';
+        return  "id : " + id +
+                ", username : '" + username + '\'' +
+                ", age : " + age
+                ;
     }
 }
