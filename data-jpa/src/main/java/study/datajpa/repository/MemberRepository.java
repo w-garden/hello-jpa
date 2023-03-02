@@ -3,6 +3,11 @@ package study.datajpa.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import study.datajpa.entity.Member;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+import java.util.List;
 
+public interface MemberRepository extends JpaRepository<Member, Long> {
+    List<Member> findByUsernameAndAgeGreaterThan(String username, int age);
+    List<Member> findHelloBy(); //전체조회
+
+    List<Member> findTop3HelloBy(); //3개조회
 }
