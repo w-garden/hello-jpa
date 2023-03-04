@@ -165,4 +165,24 @@ class MemberRepositoryTest {
     }
 
 
+    @Test
+    @DisplayName("리턴타입 확인")
+    public void returnType() {
+        Member m1 = new Member("AAA", 10);
+        Member m2 = new Member("AAA", 20);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+        List<Member> listMember = memberRepository.findListByUsername("AAA"); //리스트
+
+        Member singleMember = memberRepository.findMemberByUsername("AAA"); //단건
+
+        Optional<Member> optionalMember = memberRepository.findOptionalByUsername("AAA"); //Optional
+
+        System.out.println("listMember = " + listMember);
+        System.out.println("singleMember = " + singleMember);
+        System.out.println("optionalMember = " + optionalMember);
+
+
+    }
 }
