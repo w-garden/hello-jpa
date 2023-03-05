@@ -16,6 +16,7 @@ import static lombok.AccessLevel.*;
         name="Member.findByUsername",
         query = "select m from Member m where m.username =:username"
 )
+@NamedEntityGraph(name = "Member.all", attributeNodes = @NamedAttributeNode("team"))
 public class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="member_id")
