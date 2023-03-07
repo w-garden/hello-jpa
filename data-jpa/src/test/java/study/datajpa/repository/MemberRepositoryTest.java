@@ -1,17 +1,15 @@
 package study.datajpa.repository;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
-import study.datajpa.dto.MemberDTO;
+import study.datajpa.dto.MemberDto;
 import study.datajpa.entity.Member;
 import study.datajpa.entity.Team;
 
@@ -22,7 +20,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -151,8 +148,8 @@ class MemberRepositoryTest {
         m1.setTeam(team);
         memberRepository.save(m1);
 
-        List<MemberDTO> memberDto = memberRepository.findMemberDto();
-        for (MemberDTO dto : memberDto) {
+        List<MemberDto> memberDto = memberRepository.findMemberDto();
+        for (MemberDto dto : memberDto) {
             System.out.println("dto = " + dto);
         }
     }
@@ -209,7 +206,7 @@ class MemberRepositoryTest {
 
         //when
         Page<Member> page =memberRepository.findByAge(age, pageRequest);
-        Page<MemberDTO> toMep = page.map(m -> new MemberDTO(m.getId(), m.getUsername(), null));
+        Page<MemberDto> toMep = page.map(m -> new MemberDto(m.getId(), m.getUsername(), null));
 //        Slice<Member> page =memberRepository.findByAge(age, pageRequest);
 //        List<Member> page =memberRepository.findByAge(age, pageRequest);
 
