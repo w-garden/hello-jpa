@@ -380,6 +380,31 @@ class MemberRepositoryTest {
         //then
     }
 
+    @Test
+    public void projections2() throws Exception{
+        //given
+        Team teamA = new Team("teamA");
+        em.persist(teamA);
+
+        Member m1 = new Member("m1", 0, teamA);
+        Member m2 = new Member("m2", 0, teamA);
+        em.persist(m1);
+        em.persist(m2);
+
+        em.flush();
+        em.clear();
+
+        //when
+//        List<UsernameOnlyDto> result = memberRepository.findProjectionDtoByUsername("m1", UsernameOnlyDto.class);
+        List<NestedCloseProjections> result = memberRepository.findProjectionDtoByUsername("m1", NestedCloseProjections.class);
+        for (NestedCloseProjections nestedCloseProjections : result) {
+            System.out.println("nestedCloseProjections.username = " + nestedCloseProjections.getUsername());
+            System.out.println("nestedCloseProjections.teamName = " +  nestedCloseProjections.getTeam().getName());
+
+        }
+        //then
+    }
+
 
 
 }
