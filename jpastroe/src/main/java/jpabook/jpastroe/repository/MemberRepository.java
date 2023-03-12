@@ -1,5 +1,6 @@
-package jpabook.jpastroe;
+package jpabook.jpastroe.repository;
 
+import jpabook.jpastroe.domain.Member;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
