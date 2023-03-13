@@ -1,5 +1,6 @@
 package jpabook.jpastroe.domain;
 
+import jpabook.jpastroe.domain.item.Item;
 import lombok.Getter;
 import lombok.Setter;
 

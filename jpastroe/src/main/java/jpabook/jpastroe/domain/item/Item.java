@@ -1,6 +1,7 @@
-package jpabook.jpastroe.domain;
+package jpabook.jpastroe.domain.item;
 
 
+import jpabook.jpastroe.domain.Category;
 import lombok.Getter;
 import lombok.Setter;
 
