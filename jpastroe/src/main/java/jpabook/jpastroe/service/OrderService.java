@@ -1,17 +1,17 @@
-package jpabook.jpastroe.domain.service;
+package jpabook.jpastroe.service;
 
 import jpabook.jpastroe.domain.*;
 import jpabook.jpastroe.domain.item.Item;
-import jpabook.jpastroe.domain.repository.ItemRepository;
+import jpabook.jpastroe.repository.ItemRepository;
 import jpabook.jpastroe.repository.MemberRepository;
 import jpabook.jpastroe.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class OrderService {
     private final MemberRepository memberRepository;

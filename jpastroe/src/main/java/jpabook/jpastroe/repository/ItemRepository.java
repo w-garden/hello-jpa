@@ -1,4 +1,4 @@
-package jpabook.jpastroe.domain.repository;
+package jpabook.jpastroe.repository;
 
 import jpabook.jpastroe.domain.item.Item;
 import lombok.RequiredArgsConstructor;
