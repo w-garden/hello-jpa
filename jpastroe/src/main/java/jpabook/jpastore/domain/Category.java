@@ -19,7 +19,7 @@ public class Category {
     private Long id;
     private String name;
     @ManyToMany
-    @JoinTable(name="category_item",
+    @JoinTable(name="category_item", //중간테이블 매핑
             joinColumns=@JoinColumn(name="category_id"),
             inverseJoinColumns = @JoinColumn(name="item_id"))
     private List<Item> items = new ArrayList<>();
