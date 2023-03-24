@@ -22,7 +22,7 @@ public class Order {
     @JoinColumn(name="member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "order", cascade = ALL)
+    @OneToMany(mappedBy = "order", cascade = ALL)  //cascade=ALL : order를 저장하면 orderItem에도 저장됨, persist안함
     private List<OrderItem> orderItems = new ArrayList();
 
     @OneToOne(cascade = ALL, fetch = LAZY)
