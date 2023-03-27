@@ -12,6 +12,7 @@ import jpabook.jpastore.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -21,9 +22,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
+@Rollback(value = true)
 class OrderServiceTest {
-    @PersistenceContext
-    EntityManager em;
+    @PersistenceContext EntityManager em;
     @Autowired OrderRepository orderRepository;
     @Autowired OrderService orderService;
 
@@ -31,7 +32,9 @@ class OrderServiceTest {
     public void 상품주문() throws Exception {
         //given
         Member member= createMember();
-        Item item=creatBook("JPA BOOK", 10000, 15);
+        int price=10000;
+        int stockQuantity =15;
+        Item item=creatBook("JPA BOOK", price, stockQuantity);
         int orderCount =10;
 
         //when
@@ -42,8 +45,8 @@ class OrderServiceTest {
 
         assertEquals(OrderStatus.ORDER, getOrder.getStatus(),"상품 주문시 상태는 ORDER");
         assertEquals(1, getOrder.getOrderItems().size(), "주문한 상품 종류 수가 정확해야 한다.");
-        assertEquals(10000 * 2, getOrder.getTotalPrice(), "주문 가격은 가격 * 수량이다.");
-        assertEquals(5, item.getStockQuantity(), "주문 수량만큼 재고가 줄어야 한다");
+        assertEquals(price * orderCount, getOrder.getTotalPrice(), "주문 가격은 가격 * 수량이다.");
+        assertEquals(stockQuantity-orderCount, item.getStockQuantity(), "주문 수량만큼 재고가 줄어야 한다");
 
     }
 
@@ -52,12 +55,18 @@ class OrderServiceTest {
     public void 상품주문_재고수량초과() {
         //given
         Member member = createMember();
-        Item item = creatBook("시골 JPA", 10000, 10);
+        int price=10000;
+        int stockQuantity =15;
+        Item item = creatBook("시골 JPA", price, stockQuantity);
 
-        int orderCount =11;
+        int orderCount =stockQuantity+1;
 
         //when
-        orderService.order(member.getId(), item.getId(), orderCount);
+        try{
+             orderService.order(member.getId(), item.getId(), orderCount);
+        } catch (NotEnoughStockException e){
+            return;
+        }
 
         //then
         fail("재고 수량 부족 예외가 발생해야 한다");

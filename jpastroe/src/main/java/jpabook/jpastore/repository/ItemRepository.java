@@ -16,7 +16,7 @@ public class ItemRepository {
         if(item.getId()==null)
             em.persist(item);
         else
-            em.merge(item);
+            em.merge(item); //merge 란 ? 준영속 상태의 Entity 를 영속상태의 Entity 로 넘김
     }
 
     public Item findOne(Long id) {
