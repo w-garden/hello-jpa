@@ -2,12 +2,11 @@ package jpabook.jpastore.web;
 
 import jpabook.jpastore.domain.Member;
 import jpabook.jpastore.domain.Order;
-import jpabook.jpastore.domain.OrderSearch;
+import jpabook.jpastore.repository.OrderSearch;
 import jpabook.jpastore.domain.item.Item;
 import jpabook.jpastore.service.ItemService;
 import jpabook.jpastore.service.MemberService;
 import jpabook.jpastore.service.OrderService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
