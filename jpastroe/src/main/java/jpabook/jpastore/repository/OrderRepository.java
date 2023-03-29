@@ -58,4 +58,7 @@ public class OrderRepository {
         return query.getResultList();
     }
 
+    public List<Order> findAllByString(OrderSearch orderSearch) {
+        return null;
+    }
 }
