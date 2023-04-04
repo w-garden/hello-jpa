@@ -4,6 +4,8 @@ import jpabook.jpastore.domain.Address;
 import jpabook.jpastore.domain.Order;
 import jpabook.jpastore.domain.OrderItem;
 import jpabook.jpastore.domain.OrderStatus;
+import jpabook.jpastore.repository.order.query.OrderQueryDto;
+import jpabook.jpastore.repository.order.query.OrderQueryRepository;
 import jpabook.jpastore.repository.OrderRepository;
 import jpabook.jpastore.repository.OrderSearch;
 import lombok.Data;
