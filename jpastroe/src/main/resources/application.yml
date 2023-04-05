@@ -11,7 +11,7 @@ spring:
       hibernate:
 #        show_sql: true
         format_sql: true
-        default_batch_fetch_size: 1000
+        default_batch_fetch_size: 10 #설정한 사이즈만큼 IN쿼리로 조회
 logging:
   level:
     org.hibernate.SQL: debug
