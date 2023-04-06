@@ -1,3 +1,9 @@
+//querydsl 추가
+buildscript {
+    dependencies {
+        classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.10")
+    }
+}
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.9'
@@ -31,7 +37,10 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-
+    //querydsl 추가
+    implementation 'com.querydsl:querydsl-jpa'
+    //querydsl 추가
+    implementation 'com.querydsl:querydsl-apt'
     //JUnit4 추가
     testImplementation('org.junit.vintage:junit-vintage-engine:') {
         exclude group: 'org.hamcrest', module: 'hamcrest-core'
@@ -41,3 +50,27 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+//querydsl 추가
+//def querydslDir = 'src/main/generated'
+
+
+//def querydslDir = "$buildDir/generated/querydsl"
+//querydsl {
+//    library = "com.querydsl:querydsl-apt"
+//    jpa = true
+//    querydslSourcesDir = querydslDir
+//}
+//sourceSets {
+//    main {
+//        java {
+//        }
+//        srcDirs = ['src/main/java', querydslDir]
+//    }
+//}
+//compileQuerydsl{
+//    options.annotationProcessorPath = configurations.querydsl
+//}
+//configurations {
+//    querydsl.extendsFrom compileClasspath
+//}
