@@ -1,6 +1,9 @@
 package jpabook.jpastore.repository;
 
 import jpabook.jpastore.domain.Member;
+import jpabook.jpastore.domain.Order;
+import jpabook.jpastore.domain.QMember;
+import jpabook.jpastore.domain.QOrder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -29,4 +32,6 @@ public class MemberRepositoryOld {
                 .setParameter("name", name)
                 .getResultList();
     }
+
+
 }
