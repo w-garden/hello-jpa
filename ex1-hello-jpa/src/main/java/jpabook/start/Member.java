@@ -1,4 +1,4 @@
-package hellojpa;
+package jpabook.start;
 
 import lombok.Getter;
 import lombok.Setter;
