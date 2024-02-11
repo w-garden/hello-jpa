@@ -39,6 +39,9 @@ public class ExamMergeMain {
         EntityTransaction tx2 = em2.getTransaction();
 
         tx2.begin();
+
+        System.out.println("member = " + em2.find(Member.class,"memberA").getUsername());
+
         Member mergeMember = em2.merge(member);
         tx2.commit();
 
