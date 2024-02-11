@@ -17,7 +17,8 @@ public class JpaMain {
 
         try {
             tx.begin();
-            logic(em);
+//            logic(em);
+            logic4(em);
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
@@ -50,5 +51,80 @@ public class JpaMain {
 
         //삭제
         em.remove(members);
+    }
+
+
+    private static void logic2(EntityManager em) {
+        String id1 = "id1";
+        String id2 = "id2";
+
+        Member memberA = new Member();
+        memberA.setId(id1);
+        memberA.setUsername("Andy");
+        memberA.setAge(30);
+
+        Member memberB = new Member();
+        memberB.setId(id2);
+        memberB.setUsername("Tom");
+        memberB.setAge(35);
+
+        //등록
+        em.persist(memberA);
+        em.persist(memberB);
+
+        Member findMemberA = em.find(Member.class,"id1");
+        Member findMemberB = em.find(Member.class,"id2");
+
+        System.out.println(findMemberA == findMemberA);
+
+    }
+    private static void logic3(EntityManager em) {
+        String id1 = "id1";
+        String id2 = "id2";
+        Member memberA = new Member();
+        memberA.setId(id1);
+        memberA.setUsername("Andy");
+        memberA.setAge(30);
+
+        Member memberB= new Member();
+        memberB.setId(id2);
+        memberA.setUsername("Tom");
+        memberA.setAge(30);
+
+        //등록
+        em.persist(memberA);
+        em.persist(memberB);
+
+        Member findMemberA = em.find(Member.class,"id1");
+        Member findMemberB = em.find(Member.class,"id2");
+        System.out.println(findMemberA == findMemberA);
+
+
+
+    }
+
+    private static void logic4(EntityManager em) {
+        String id1 = "id1";
+        String id2 = "id2";
+        Member memberA = new Member();
+        memberA.setId(id1);
+        memberA.setUsername("Andy");
+        memberA.setAge(30);
+
+        Member memberB= new Member();
+        memberB.setId(id2);
+        memberB.setUsername("Tom");
+        memberB.setAge(34);
+
+        //등록
+        em.persist(memberA);
+        em.persist(memberB);
+
+
+//        em.clear();
+
+
+
+
     }
 }
