@@ -8,6 +8,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import static javax.persistence.EnumType.STRING;
+import static javax.persistence.TemporalType.TIMESTAMP;
+
 @Entity
 @Getter
 @Setter
@@ -25,22 +28,21 @@ public class Member {
      * 권장 식별자 전략
      * LONG 형 + 대체키 + 키 생성 전략 사용
      */
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE
-            ,generator = "member_seq_generator"
-    )
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "member_seq_generator")
     private Long id;
+
     @Column(name = "name", nullable = false)
     private String username;
 
     private int age;
 
-    @Enumerated(EnumType.STRING) //Enum 타입 매핑 -> EnumType.ORDINAL 사용금지
+    @Enumerated(STRING) //Enum 타입 매핑 -> EnumType.ORDINAL 사용금지
     private RoleType roleType;
 
-    @Temporal(TemporalType.TIMESTAMP) //날짜타입 매핑
+    @Temporal(TIMESTAMP) //날짜타입 매핑
     private Date createDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TIMESTAMP)
     private Date lastModifiedDate;
 
     private LocalDate testLocalDate; //JPA가 자동으로 매핑해줌

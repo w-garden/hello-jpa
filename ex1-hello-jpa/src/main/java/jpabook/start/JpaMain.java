@@ -7,29 +7,27 @@ import javax.persistence.Persistence;
 
 public class JpaMain {
     public static void main(String[] args) {
-        //EntityManagerFactory은 애플리케이션당 1개만 있어야함.
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
-        //EntityManager 여러개 생성가능 : DatabaseConnection 받는것과 비슷함
         EntityManager em = emf.createEntityManager();
 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            //Member findMember = em.find(Member.class,1L);
 /**
  *   Jpa basic Method
  *   회원등록, 회원 찾기, 회원 수정, 회원 삭제, 특정 회원 조회
  */
-        /*
+            Member member = new Member();
             //회원 등록
             member.setId(2L);
-            member.setName("helloB");
-            em.persist(member); */
-          /*
+            member.setUsername("helloB");
+            em.persist(member);
+
+            Member findMember = em.find(Member.class,1L);
 
             //회원 찾기
-            System.out.println("id : " + findMember.getName());
-            System.out.println("name : " + findMember.getId());*/
+            System.out.println("id : " + findMember.getUsername());
+            System.out.println("name : " + findMember.getId());
 
             /*
             //회원 수정
@@ -104,7 +102,7 @@ public class JpaMain {
 
 
 
-            Member member = new Member();
+//            Member member = new Member();
             member.setUsername("hello2");
             member.setRoleType(RoleType.ADMIN);
             System.out.println("===============================");
@@ -115,7 +113,7 @@ public class JpaMain {
 
             tx.commit();
         } catch (Exception e) {
-
+            tx.rollback();
         } finally {
             em.close();
         }
