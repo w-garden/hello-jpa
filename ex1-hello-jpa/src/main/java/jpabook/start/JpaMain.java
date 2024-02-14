@@ -30,24 +30,7 @@ public class JpaMain {
              */
             persistenceEntity(em); //영속성 상태의 동일성 보장
             dirtyChecking(em); //더티 체킹
-
-
-            /*
-             * 플러시발생 상황
-             * 1. em.flush();
-             * 2. 트랜잭션 commit
-             * 3. 중간에 JPQL 실행 : 실제 SQL이 실행되기에
-             */
-            Member member = new Member(200L, "member200");
-            em.persist(member);
-            em.flush(); //insert 쿼리 실행*/
-
-
-            Member member1 = new Member(201L, "member201");
-            member1.setUsername("hello2");
-            member1.setRoleType(RoleType.ADMIN);
-            em.persist(member1);
-            System.out.println("member.id = "+ member1.getId());
+            flushEntity(em);
 
             tx.commit();
         } catch (Exception e) {
@@ -58,6 +41,25 @@ public class JpaMain {
             em.close();
         }
         emf.close(); //WAS 가 내려갈때 EntityManagerFactory를 닫아주어야한다.
+    }
+
+    private static void flushEntity(EntityManager em) {
+        /*
+         * 플러시발생 상황
+         * 1. em.flush();
+         * 2. 트랜잭션 commit
+         * 3. 중간에 JPQL 실행 : 실제 SQL이 실행되기에
+         */
+        Member member = new Member(200L, "member200");
+        em.persist(member);
+        em.flush(); //insert 쿼리 실행*/
+
+
+        Member member1 = new Member(201L, "member201");
+        member1.setUsername("hello2");
+        member1.setRoleType(RoleType.ADMIN);
+        em.persist(member1);
+        System.out.println("member.id = "+ member1.getId());
     }
 
     private static void dirtyChecking(EntityManager em) {
@@ -119,6 +121,7 @@ public class JpaMain {
     private static void updateMember(EntityManager em) {
         Member memberA = em.find(Member.class, 1L);
         memberA.setUsername("HelloJPA");
+        memberA.setAge(46);
         Member findMember = em.find(Member.class, 1L);
 
         System.out.println("===============updateMember ===============");
