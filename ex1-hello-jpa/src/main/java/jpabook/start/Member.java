@@ -2,6 +2,7 @@ package jpabook.start;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -28,7 +29,8 @@ public class Member {
      * 권장 식별자 전략
      * LONG 형 + 대체키 + 키 생성 전략 사용
      */
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -39,6 +41,7 @@ public class Member {
     @Enumerated(STRING) //Enum 타입 매핑 -> EnumType.ORDINAL 사용금지
     private RoleType roleType;
 
+    @CreationTimestamp
     @Temporal(TIMESTAMP) //날짜타입 매핑
     private Date createDate;
 
@@ -58,6 +61,10 @@ public class Member {
     public Member() {
     }
 
+    public Member(Long id, String username) {
+        this.id = id;
+        this.username = username;
+    }
 }
 
 
