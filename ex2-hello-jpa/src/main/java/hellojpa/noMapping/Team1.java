@@ -1,4 +1,4 @@
-package hellojpa.basic;
+package hellojpa.noMapping;
 
 import lombok.Getter;
 import lombok.Setter;

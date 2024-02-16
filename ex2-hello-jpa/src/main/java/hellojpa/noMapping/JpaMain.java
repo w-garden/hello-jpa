@@ -1,4 +1,4 @@
-package hellojpa.basic;
+package hellojpa.noMapping;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
