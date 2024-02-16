@@ -1,4 +1,4 @@
-package hellojpa.ManyMany;
+package hellojpa.manyMany;
 
 import lombok.Getter;
 import lombok.Setter;

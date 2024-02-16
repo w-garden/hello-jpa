@@ -1,4 +1,4 @@
-package hellojpa.ManyOne;
+package hellojpa.manyOne;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Team2 {
+public class Team3 {
 
     @Id @GeneratedValue
     @Column(name="TEAM_ID")
@@ -19,11 +19,11 @@ public class Team2 {
     private String name;
 
     @OneToMany(mappedBy = "team") //Team에서 Member로는 1:다
-    private List<Member2> members = new ArrayList<>();
+    private List<Member3> members = new ArrayList<>();
 
 
 
-//    public void addMember(Member2 member){
+//    public void addMember(Member3 member){
 //        member.setTeam(this);
 //        members.add(member);
 //    }

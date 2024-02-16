@@ -19,17 +19,7 @@ public class Main {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            /**
-             *  연관관계가 없음
-             *   팀저장
-             */
-//            notMapping(em);
-            /**
-             *   //양방향 매핑 : 연관관계의 주인에 값 설정
-             *   //권장사항 : 양쪽에 값 설정을 다 하자 -> 연관관계 편의 메서드로 처리
-             *   //팀저장
-             */
-//            mapping_relation(em);
+
             /**
              *  1 : 다 연관관계
              */
@@ -52,7 +42,7 @@ public class Main {
              */
             //proxy(em, member);
             /**
-             * Team2 Entity에 설정
+             * Team3 Entity에 설정
              * 지연로딩, LAZY LOADING
              * 즉시로딩, EAGER LOADING  --> 실무에서는 지양해야함!
              */
@@ -188,39 +178,24 @@ public class Main {
         em.persist(member);
     }
 //
-//    private static void printMember(hellojpa.Member2 member) {
+//    private static void printMember(hellojpa.Member3 member) {
 //        System.out.println("member = "+ member.getUsername());
 //    }
-//    private static void printMemberAndTeam(hellojpa.Member2 member) {
+//    private static void printMemberAndTeam(hellojpa.Member3 member) {
 //        String username = member.getUsername();
 //        System.out.println("username =" + username);
 //
-//        hellojpa.Team2 team = member.getTeam();
+//        hellojpa.Team3 team = member.getTeam();
 //        System.out.println("team = "+ team.getName());
 //    }
-    private static void notMapping(EntityManager em) {
-      /*  Team2 team =new Team2();
-        team.setName("TeamA");
-        em.persist(team);
-        //회원저장
-        Member2 member = new Member2();
-        member.setUsername("member1");
-        member.setTeamId(team.getId());
-        em.persist(member);
-        //조회
-        Member2 findMember = em.find(Member2.class, member.getId());
 
-
-        Long findTeamId = findMember.getTeamId();
-        Team2 findTeam = em.find(Team2.class, findTeamId); */
-    }
 
     /*
 
     private static void oneToMany(EntityManager em) {
-        hellojpa.Member2 member = saveMember(em);
+        hellojpa.Member3 member = saveMember(em);
 
-        hellojpa.Team2 team = new hellojpa.Team2();
+        hellojpa.Team3 team = new hellojpa.Team3();
         team.setName("teamA");
 
         team.getMembers().add(member);
@@ -246,39 +221,39 @@ public class Main {
     }
     /*
     private static void mappedSuperClass(EntityManager em) {
-        hellojpa.Member2 member = new hellojpa.Member2();
+        hellojpa.Member3 member = new hellojpa.Member3();
         member.setUsername("user1");
         member.setCreatedBy("SHIN");
         member.setCreateDate(LocalDateTime.now());
 
 
-        hellojpa.Member2 member2= new hellojpa.Member2();
+        hellojpa.Member3 member2= new hellojpa.Member3();
         member2.setUsername("hello");
 
         em.persist(member);
         em.flush();
         em.clear();
 
-//          Member2 findMember = em.find(Member2.class, member.getId());
+//          Member3 findMember = em.find(Member3.class, member.getId());
     }
-    private static void proxy(EntityManager em, hellojpa.Member2 member) {
-        hellojpa.Member2 findMember = em.getReference(hellojpa.Member2.class, member.getId()); //DB 쿼리 실행 안함
-        System.out.println("findMember.getClass() = " + findMember.getClass());  //프록시(가짜) 클래스 class hellojpa.Member2$HibernateProxy$FMWUKLLF
+    private static void proxy(EntityManager em, hellojpa.Member3 member) {
+        hellojpa.Member3 findMember = em.getReference(hellojpa.Member3.class, member.getId()); //DB 쿼리 실행 안함
+        System.out.println("findMember.getClass() = " + findMember.getClass());  //프록시(가짜) 클래스 class hellojpa.Member3$HibernateProxy$FMWUKLLF
         System.out.println("findMember.getId() = " + findMember.getId());
         System.out.println("findMember.getUsername() = " + findMember.getUsername());
         System.out.println("findMember.getUsername() = " + findMember.getUsername());
     }
-    private static hellojpa.Member2 saveMember(EntityManager em) {
-        hellojpa.Member2 member = new hellojpa.Member2();
+    private static hellojpa.Member3 saveMember(EntityManager em) {
+        hellojpa.Member3 member = new hellojpa.Member3();
         member.setUsername("member1");
         em.persist(member);
         return member;
     }
     private static void lazy_eager(EntityManager em) {
-        hellojpa.Team2 team = new hellojpa.Team2();
+        hellojpa.Team3 team = new hellojpa.Team3();
         team.setName("team1");
         em.persist(team);
-        hellojpa.Member2 member1 = new hellojpa.Member2();
+        hellojpa.Member3 member1 = new hellojpa.Member3();
         member1.setUsername("member1");
         em.persist(member1);
         member1.setTeam(team);
@@ -286,9 +261,9 @@ public class Main {
         em.flush();
         em.clear();
 
-        List<hellojpa.Member2> members = em.createQuery("select m from Member2 m", hellojpa.Member2.class).getResultList();
+        List<hellojpa.Member3> members = em.createQuery("select m from Member3 m", hellojpa.Member3.class).getResultList();
 
-        hellojpa.Member2 m = em.find(hellojpa.Member2.class, member1.getId());
+        hellojpa.Member3 m = em.find(hellojpa.Member3.class, member1.getId());
         System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
         //지연로딩 : 프록시로 조회됨. 즉시로딩 : 실제 Entity 조회
 
