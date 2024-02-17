@@ -13,8 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class Member3 {
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
 
@@ -33,10 +32,7 @@ public class Member3 {
         team.getMembers().add(this);
     }
 
-    public void changeTeam(Team3 team) { //연관관계 편의 메서드
-        this.team = team;
-        team.getMembers().add(this);
-    }
+
 
 
 }

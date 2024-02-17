@@ -1,7 +1,6 @@
 package hellojpa.oneMany;
 
 
-
 import hellojpa.manyOne.Member3;
 import hellojpa.manyOne.Team3;
 
@@ -18,7 +17,7 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-
+            testSave(em);
 
 
             tx.commit();
@@ -31,6 +30,19 @@ public class JpaMain {
         emf.close();
     }
 
+    private static void testSave(EntityManager em) {
+        Member4 member1 = new Member4("member1");
+        Member4 member2 = new Member4("member2");
+
+        Team4 team1 = new Team4("team1");
+        team1.getMembers().add(member1);
+        team1.getMembers().add(member2);
+
+        em.persist(member1); //INSERT-member1
+        em.persist(member2); //INSERT-member2
+        em.persist(team1); //INSERT-team1, UPDATE-member1.fk, UPDATE-member2.fk
+    }
+
     private static void oneToMany(EntityManager em) {
         Member3 member = new Member3();
 
@@ -41,7 +53,6 @@ public class JpaMain {
 
         em.persist(team);
     }
-
 
 
 }

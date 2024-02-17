@@ -120,9 +120,9 @@ public class JpaMain {
     private static void selectTeamName(EntityManager em) {
         Member2 findMember = em.find(Member2.class, 2L);
         Team2 team = findMember.getTeam();
-        System.out.println("======== select Team ==========");
+        System.out.println("======== select Team4 ==========");
         System.out.println("팀 이름 = " + team.getName());
-        System.out.println("======== select Team ==========");
+        System.out.println("======== select Team4 ==========");
     }
 
 

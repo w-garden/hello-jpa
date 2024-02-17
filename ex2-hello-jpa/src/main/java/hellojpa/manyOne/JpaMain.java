@@ -31,16 +31,16 @@ public class JpaMain {
         emf.close();
     }
 
-    private static void oneToMany(EntityManager em) {
-        Member3 member = saveMember(em);
-
-        Team3 team = new Team3();
-        team.setName("teamA");
-
-        team.getMembers().add(member);
-
-        em.persist(team);
-    }
+//    private static void oneToMany(EntityManager em) {
+//        Member3 member = saveMember(em);
+//
+//        Team3 team = new Team3();
+//        team.setName("teamA");
+//
+//        team.getMembers().add(member);
+//
+//        em.persist(team);
+//    }
 
 
 
