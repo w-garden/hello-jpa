@@ -15,6 +15,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class Member5 {
+
     @Id @GeneratedValue
     @Column(name="MEMBER_ID")
     private Long id;
