@@ -5,13 +5,11 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-/**
- * 1 : 1 관계
- */
+
 @Entity
 @Getter
 @Setter
-public class Locker {
+public class Locker5 {
     @Id @GeneratedValue
     @Column(name = "LOCKER_ID")
     private Long id;
