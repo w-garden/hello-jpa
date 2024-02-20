@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * 일대다 매핑 관계(Team : Member)
+ * 일대다 매핑 관계(Team : Member3)
  */
 @Getter
 @Setter

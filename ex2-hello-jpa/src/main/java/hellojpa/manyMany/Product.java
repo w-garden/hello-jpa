@@ -7,16 +7,16 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Entity
+@Entity
 @Getter
 @Setter
 public class Product {
-    @Id @GeneratedValue
+    @Id
     @Column(name ="PRODUCT_ID")
-    private Long id;
+    private String id;
 
     private String name;
 
     @ManyToMany(mappedBy = "products")
-    private List<Member> members = new ArrayList<>();
+    private List<Member7> members = new ArrayList<>();
 }

@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 /**
- * 다대일 매핑 관계(Member : Team)
+ * 다대일 매핑 관계(Member3 : Team)
  */
 @Entity
 @Getter

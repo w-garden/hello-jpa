@@ -19,7 +19,7 @@ public class JpaMain {
         tx.begin();
         try {
 
-
+            save(em);
 
             tx.commit();
         } catch (Exception e) {
@@ -29,6 +29,18 @@ public class JpaMain {
             em.close();
         }
         emf.close();
+    }
+
+    private static void save(EntityManager em) {
+        Product productA = new Product();
+        productA.setId("productA");
+        productA.setName("상품A");
+        em.persist(productA);
+
+        Member7 member1 = new Member7();
+        member1.setUsername("회원1");
+        member1.getProducts().add(productA);
+        em.persist(member1);
     }
 
     private static void oneToMany(EntityManager em) {
