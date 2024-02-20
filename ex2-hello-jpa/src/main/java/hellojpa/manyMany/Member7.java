@@ -30,5 +30,10 @@ public class Member7 {
     @JoinTable(name="MEMBER_PRODUCT"
             , joinColumns = @JoinColumn(name = "MEMBER_ID")
             , inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
-    private List<Product> products = new ArrayList<>();
+    private List<Product7> products = new ArrayList<>();
+
+    public void addProduct(Product7 product) {
+        products.add(product);
+        product.getMembers().add(this);
+    }
 }
