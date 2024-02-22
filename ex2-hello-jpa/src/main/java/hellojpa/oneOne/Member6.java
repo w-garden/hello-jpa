@@ -18,7 +18,7 @@ public class Member6 {
     private String username;
 
     @OneToOne(mappedBy = "member")
-    private Locker5 locker;
+    private Locker6 locker;
 
 
 }

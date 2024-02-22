@@ -48,7 +48,7 @@ public class Main {
              */
             // lazy_eager(em,tx);
             /**
-             * cascade = CascadeType.ALL -> Parent Entity에 설정
+             * cascade = CascadeType.ALL -> Parent1 Entity에 설정
              * 옵션 : ALL(모두), PERSIST(영속), REMOVE(삭제)
              *
              * 고아 객체 제거 : 부모 엔티티와 연관관계가 끊어진 자식 엔티티를 자동으로 삭제
@@ -273,10 +273,10 @@ public class Main {
     }
     private static void cascade_orphanRemoval(EntityManager em) {
 
-        Child child1 = new Child();
-        Child child2 = new Child();
+        Child1 child1 = new Child1();
+        Child1 child2 = new Child1();
 
-        Parent parent = new Parent();
+        Parent1 parent = new Parent1();
         parent.addChild(child1);
         parent.addChild(child2);
 
@@ -287,7 +287,7 @@ public class Main {
         em.flush();
         em.clear();
 
-        Parent findParent = em.find(Parent.class, parent.getId());
+        Parent1 findParent = em.find(Parent1.class, parent.getId());
 //        findParent.getChildList().remove(0); //delete 쿼리 실행
         em.remove(findParent);
     }
