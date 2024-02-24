@@ -1,4 +1,4 @@
-package hellojpa.nonIdentifying;
+package hellojpa.nonIdentifying.embeddedId;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

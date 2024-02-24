@@ -1,4 +1,4 @@
-package hellojpa.nonIdentifying;
+package hellojpa.nonIdentifying.idClass;
 
 import javax.persistence.*;
 

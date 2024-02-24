@@ -1,4 +1,4 @@
-package hellojpa.nonIdentifying;
+package hellojpa.nonIdentifying.embeddedId;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

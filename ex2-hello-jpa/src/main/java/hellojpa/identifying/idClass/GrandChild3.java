@@ -1,4 +1,4 @@
-package hellojpa.identifying;
+package hellojpa.identifying.idClass;
 
 import lombok.Data;
 
@@ -7,13 +7,14 @@ import javax.persistence.*;
 //손자
 @Data
 @Entity
-@IdClass(GrandChildId.class)
-public class GrandChild {
+@IdClass(GrandChildId3.class)
+public class GrandChild3 {
+
     @Id
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "PARENT_ID")
-            , @JoinColumn(name = "CHILD_ID")
+            @JoinColumn(name = "PARENT_ID"),
+            @JoinColumn(name = "CHILD_ID")
     })
     private Child3 child;
 

@@ -1,10 +1,10 @@
-package hellojpa.identifying;
+package hellojpa.identifying.idClass;
 
 import java.io.Serializable;
 //자식 ID
 public class ChildId3 implements Serializable {
-    private String parent; //Child.parent 매핑
-    private String child; //Child.child 매핑
+    private String parent; //Child4.parent 매핑
+    private String child; //Child4.childId 매핑
 
     @Override
     public boolean equals(Object o) {

@@ -1,4 +1,4 @@
-package hellojpa.identifying;
+package hellojpa.identifying.idClass;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-//부모 엔티티
+//부모
 @Entity
 @Data
 public class Parent3 {
