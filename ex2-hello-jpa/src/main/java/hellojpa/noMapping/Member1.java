@@ -1,6 +1,7 @@
 package hellojpa.noMapping;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 public class Member1 {
     @Id @GeneratedValue
@@ -22,5 +24,7 @@ public class Member1 {
     private String username;
 
 
-
+    public Member1(String username) {
+        this.username = username;
+    }
 }

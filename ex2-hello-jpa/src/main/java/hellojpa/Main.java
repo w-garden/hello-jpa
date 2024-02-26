@@ -40,7 +40,7 @@ public class Main {
              * 4. 영속성 컨텍스트에 찾는 엔티티가 이미 있으면 em.getReference()를 호출해도 실제 엔티티 반환
              * 5. 영속성 컨텍스트의 도움을 받을 수 없는 준영속 상태일 때, 프록시를 초기화하면 문제발생
              */
-            //proxy(em, member);
+//            proxy(em, member);
             /**
              * Team3 Entity에 설정
              * 지연로딩, LAZY LOADING
@@ -222,7 +222,7 @@ public class Main {
         Item item = em.find(Item.class, movie.getId());
         System.out.println("item = "+ item);
     }
-    /*
+ /*
     private static void mappedSuperClass(EntityManager em) {
         hellojpa.Member3 member = new hellojpa.Member3();
         member.setUsername("user1");
@@ -238,7 +238,9 @@ public class Main {
         em.clear();
 
 //          Member3 findMember = em.find(Member3.class, member.getId());
+
     }
+
     private static void proxy(EntityManager em, hellojpa.Member3 member) {
         hellojpa.Member3 findMember = em.getReference(hellojpa.Member3.class, member.getId()); //DB 쿼리 실행 안함
         System.out.println("findMember.getClass() = " + findMember.getClass());  //프록시(가짜) 클래스 class hellojpa.Member3$HibernateProxy$FMWUKLLF
