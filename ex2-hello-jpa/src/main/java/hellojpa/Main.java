@@ -93,7 +93,10 @@ public class Main {
 //            printMemberAndTeam(member);
             tx.commit();
         } catch (Exception e) {
+            System.out.println(e.toString());
+            e.printStackTrace();
             tx.rollback();
+            System.out.println("흠");
         } finally {
             em.close();
         }

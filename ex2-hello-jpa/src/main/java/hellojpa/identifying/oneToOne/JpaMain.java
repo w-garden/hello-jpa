@@ -1,9 +1,5 @@
 package hellojpa.identifying.oneToOne;
 
-import hellojpa.nonIdentifying.embeddedId.Parent2;
-import hellojpa.nonIdentifying.embeddedId.ParentId2;
-import hellojpa.nonIdentifying.idClass.Parent1;
-import hellojpa.nonIdentifying.idClass.ParentId1;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
