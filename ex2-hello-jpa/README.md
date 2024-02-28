@@ -1,14 +1,16 @@
 # ex2-hello-jpa
 
-1. 단방향 연관관계
-2. 양방향 연관관계
-    - FK가 있는 곳이 연관관계의 주인(mappedBy X)
-    - 사실 단방향 매핑만으로도 이미 연관관계 매핑은 완료됨 -> 양방향 매핑은 역방향 참조위해 사용(Option)
----
-일대다
-
-다대일
-
-일대일
-
-다대다
+- [noMapping](src%2Fmain%2Fjava%2Fhellojpa%2FnoMapping)
+- [basicMapping](src%2Fmain%2Fjava%2Fhellojpa%2FbasicMapping)
+- [manyOne](src%2Fmain%2Fjava%2Fhellojpa%2FmanyOne)
+- [oneMany](src%2Fmain%2Fjava%2Fhellojpa%2FoneMany)
+- [oneOne](src%2Fmain%2Fjava%2Fhellojpa%2FoneOne)
+- [manyMany](src%2Fmain%2Fjava%2Fhellojpa%2FmanyMany)
+- [nonIdentifying](src%2Fmain%2Fjava%2Fhellojpa%2FnonIdentifying)
+- [identifying](src%2Fmain%2Fjava%2Fhellojpa%2Fidentifying)
+- [proxy](src%2Fmain%2Fjava%2Fhellojpa%2Fproxy)
+- [secondaryTable](src%2Fmain%2Fjava%2Fhellojpa%2FsecondaryTable)
+- [jointable](src%2Fmain%2Fjava%2Fhellojpa%2Fjointable)
+- [inheritance](src%2Fmain%2Fjava%2Fhellojpa%2Finheritance)
+- [cascade](src%2Fmain%2Fjava%2Fhellojpa%2Fcascade)
+- [valueType](src%2Fmain%2Fjava%2Fhellojpa%2FvalueType)
