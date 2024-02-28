@@ -1,9 +1,6 @@
 package hellojpa.proxy;
 
 import hellojpa.basicMapping.Member2;
-import hellojpa.embedded.Address;
-import hellojpa.embedded.Member;
-import hellojpa.embedded.Period;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

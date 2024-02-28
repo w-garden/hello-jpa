@@ -1,6 +1,6 @@
-package hellojpa.값타입컬렉션;
+package hellojpa.valueType.valueTypeCollection;
 
-import hellojpa.embedded.Address;
+import hellojpa.valueType.embedded.Address;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Entity
+//@Entity
 @Getter
 @Setter
 public class Member {

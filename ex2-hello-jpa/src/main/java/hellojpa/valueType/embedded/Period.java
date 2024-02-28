@@ -1,4 +1,4 @@
-package hellojpa.embedded;
+package hellojpa.valueType.embedded;
 
 import lombok.Getter;
 import lombok.Setter;
