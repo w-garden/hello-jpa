@@ -13,8 +13,7 @@ public class Main {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try{
-//            JPQL_기본(em);
-//            Criteria_기본(em);
+            Criteria_기본(em);
 //            NativeSQL(em);
 /**
             //Fetch Join 예제에서는 사용안함
@@ -35,7 +34,6 @@ public class Main {
             em.clear();
 */
 //            타입쿼리(em);
-//            파라미터바인딩(em);
             /**
              * 프로젝션
              * - select 절에 조회할 대상을 지정하는 것
@@ -89,7 +87,7 @@ public class Main {
              * 3. 어노테이션, XML
              * 4. 어플리케이션 로딩시 점에 초기화 후 재사용
              */
-//            Named 쿼리(em);
+            Named쿼리(em);
 
             /**
              * 벌크연산
@@ -237,7 +235,7 @@ public class Main {
     private static void JPQL타입표현_ENUM(EntityManager em) {
         String query = "select m.username, 'HELLO', true From Member m where m.type=:userType";
         List<Object[]> result = em.createQuery(query)
-                .setParameter("userType",MemberType.ADMIN)
+                .setParameter("userType", MemberType.ADMIN)
                 .getResultList();
         for (Object[] objects : result) {
             System.out.println("objects[0] = " + objects[0]);
@@ -291,17 +289,7 @@ public class Main {
         System.out.println("memberDTO.getAge() = " + memberDTO.getAge());
     }
 
-    private static void 파라미터바인딩(EntityManager em) {
-        Member result = em.createQuery("select m from Member m where m.username= :username", Member.class)
-                .setParameter("username", "member1")
-                .getSingleResult();
-        System.out.println("singleResult1 = " + result.getUsername());
 
-        Member result1 = em.createQuery("select m from Member m where m.username= ?1", Member.class)
-                .setParameter(1, "member1")
-                .getSingleResult();
-        System.out.println("singleResult2 = " + result1.getUsername());
-    }
 
     private static void 타입쿼리(EntityManager em) {
         TypedQuery<Member> query1 = em.createQuery("select m from Member m", Member.class);
@@ -309,9 +297,9 @@ public class Main {
         Query query3 = em.createQuery("select m.username, m.age from Member m");
     }
 
-    private static void NativeSQL(EntityManager em) {
-        em.createNativeQuery("select * from Member").getResultList();
-    }
+//    private static void NativeSQL(EntityManager em) {
+//        em.createNativeQuery("select * from Member").getResultList();
+//    }
 
     private static void Criteria_기본(EntityManager em) {
         //Criteria 사용준비
@@ -327,9 +315,5 @@ public class Main {
         List<Member> resultList = em.createQuery(cq).getResultList();
     }
 
-    private static void JPQL_기본(EntityManager em) {
-        List<Member> re = em.createQuery(
-                "select m from Member m where m.username like '%kim%'", Member.class
-        ).getResultList();
-    }
+
 }
