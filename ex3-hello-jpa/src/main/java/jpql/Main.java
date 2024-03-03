@@ -15,42 +15,6 @@ public class Main {
         try{
             Criteria_기본(em);
 //            NativeSQL(em);
-/**
-            //Fetch Join 예제에서는 사용안함
-            Team team =new Team();
-            team.setName("teamA");
-
-            em.persist(team);
-
-            Member member = new Member();
-            member.setUsername("teamA");
-            member.setAge(20);
-
-            member.setTeam(team);
-            member.setType(MemberType.ADMIN);
-            em.persist(member);
-
-            em.flush();
-            em.clear();
-*/
-//            타입쿼리(em);
-            /**
-             * 프로젝션
-             * - select 절에 조회할 대상을 지정하는 것
-             * - 프로젝션 대상 : 엔티티, 임베디드 타입, 스칼라 타입(숫자, 문다으 기본 데이터 타입)
-             * 1. SELECT m FROM Member m -> 엔티티 프로젝션
-             * 2. SELECT m.team FROM Member m ->엔티티 프로젝션
-             * 3. SELECT m.address FROM Member m -> 입메디드 타입 프로젝션
-             * 4. SELECT m.username, m.age FROM Member m -> 스칼라 타입 프로젝션
-             */
-//            프로젝션(em);
-
-            /**
-             * 페이징
-             * 1. setFirstResult()
-             * 2. setMaxResult
-             */
-//            페이징(em);
             /**
              * 조인
              * 1. 내부조인 : SELECT m FROM Member m [INNER] JOIN m.team t
@@ -59,7 +23,6 @@ public class Main {
              */
 
 
-//            조인(em);
 //            JPQL타입표현_ENUM(em);
 //            조건식(em);
             /**
@@ -145,65 +108,7 @@ public class Main {
         }
     }
 
-    private static void FETCH_조인(EntityManager em) {
-        Team teamA = new Team();
-        teamA.setName("팀A");
-        em.persist(teamA);
 
-        Team teamB = new Team();
-        teamB.setName("팀B");
-        em.persist(teamB);
-
-        Team teamC = new Team();
-        teamC.setName("팀C");
-        em.persist(teamC);
-
-
-        Member member1 = new Member();
-        member1.setUsername("회원1");
-        member1.setTeam(teamA);
-        em.persist(member1);
-
-        Member member2 = new Member();
-        member2.setUsername("회원2");
-        member2.setTeam(teamA);
-        em.persist(member2);
-
-        Member member3 = new Member();
-        member3.setUsername("회원3");
-        member3.setTeam(teamB);
-        em.persist(member3);
-
-        Member member4 = new Member();
-        member4.setUsername("회원4");
-        em.persist(member4);
-
-        em.flush();
-        em.clear();
-
-        String query1 = "select m From Member m"; //1+n 쿼리가 실행됨
-        String query2 = "select m From Member m join fetch m.team"; //엔티티 페치조인
-        String query3 = "select distinct t From Team t join fetch t.members"; //컬렉션 페치조인
-        String query4 = "select distinct t From Team t join fetch t.members where t.name='팀A'"; //컬렉션 페치조인
-
-            /*
-            //엔티티 페치조인
-            List<Member> result = em.createQuery(query2, Member.class)
-                    .getResultList();
-            for (Member member : result) {
-                System.out.println("username = " + member.getUsername() + ", teamName = " + member.getTeam().getName());
-            }*/
-
-        //컬렉션 페치조인
-        List<Team> result = em.createQuery(query3, Team.class)
-                .getResultList();
-        for (Team team : result) {
-            System.out.println("team = " + team.getName() + " | members = "+ team.getMembers().size());
-            for (Member member : team.getMembers()) {
-                System.out.println("-> member = " + member);
-            }
-        }
-    }
 
     private static void 기본함수(EntityManager em) {
         String query1 = "select 'a' || 'b' From Member m";
@@ -245,57 +150,14 @@ public class Main {
         }
     }
 
-    private static void 조인(EntityManager em) {
-        //내부조인
-        String qlString1 = "select m from Member m inner join m.team t";
-        //외부조인
-        String qlString2 = "select m from Member m, Team t where m.username=t.name";
-        //ON 절을 이용한 조인
-        String qlString3 = "select m from Member m left join m.team t on t.name='teamA'";
-        //연관관계 없는 외부 조인
-        String qlString4 = "select m from Member m left join Team t on m.username=t.name";
-
-        List<Member> result = em.createQuery(qlString4, Member.class)
-                .getResultList();
-        System.out.println("result.size() = " + result.size());
-    }
-
-    private static void 페이징(EntityManager em) {
-        List<Member> result = em.createQuery("select m from Member m order by m.age desc", Member.class)
-                .setFirstResult(10)
-                .setMaxResults(20)
-                .getResultList();
-        System.out.println("result.size = " + result.size());
-        for (Member member1 : result) {
-            System.out.println("member1 = " + member1);
-        }
-    }
-
-    private static void 프로젝션(EntityManager em) {
-        List<Member> result = em.createQuery("select m from Member m", Member.class)
-                .getResultList();
-        Member findMember = result.get(0);
-        findMember.setAge(20);
-
-        em.createQuery("select o.address from Order o", Address.class)
-                .getResultList();
-        em.createQuery("select distinct m.username, m.age from Member m")
-                .getResultList();
-        List<MemberDTO> resultDto = em.createQuery("select new jpql.MemberDTO(m.username, m.age)  from Member m", MemberDTO.class)
-                .getResultList();
-
-        MemberDTO memberDTO = resultDto.get(0);
-        System.out.println("memberDTO.getUsername() = " + memberDTO.getUsername());
-        System.out.println("memberDTO.getAge() = " + memberDTO.getAge());
-    }
 
 
 
-    private static void 타입쿼리(EntityManager em) {
-        TypedQuery<Member> query1 = em.createQuery("select m from Member m", Member.class);
-        TypedQuery<String> query2 = em.createQuery("select m.username  from Member m", String.class);
-        Query query3 = em.createQuery("select m.username, m.age from Member m");
-    }
+
+
+
+
+
 
 //    private static void NativeSQL(EntityManager em) {
 //        em.createNativeQuery("select * from Member").getResultList();
