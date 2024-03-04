@@ -9,7 +9,7 @@ import jpql.Team;
 import javax.persistence.*;
 import java.util.List;
 
-public class Main {
+public class JpqlMain {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
         EntityManager em = emf.createEntityManager();
@@ -17,8 +17,6 @@ public class Main {
         try {
             tx.begin();
 
-            saveMember(em);
-            basicJPQL(em);
             typeQuery(em);
             parameterBinding(em);
             projection(em);
@@ -37,34 +35,8 @@ public class Main {
         emf.close();
     }
 
-    private static void saveMember(EntityManager em) {
-        Team team = new Team();
-        team.setName("team1");
-        em.persist(team);
 
-        for (int i = 1; i < 40; i++) {
-            Member member = new Member();
 
-            member.setUsername("member" + i);
-            member.setAge(i);
-            member.setTeam(team);
-            em.persist(member);
-
-        }
-
-    }
-
-    private static void basicJPQL(EntityManager em) {
-        List<Member> result = em.createQuery(
-                "select m from Member m", Member.class
-        ).getResultList();
-
-        System.out.println("=============== basicJPQL =================");
-        for (Member member : result) {
-            System.out.println(member);
-        }
-        System.out.println("=============== basicJPQL =================");
-    }
 
     private static void typeQuery(EntityManager em) {
         TypedQuery<Member> query1 = em.createQuery("SELECT m FROM Member m", Member.class);
