@@ -17,7 +17,6 @@ public class JpqlMain {
         try {
             tx.begin();
 
-            typeQuery(em);
             parameterBinding(em);
             projection(em);
             paging(em);
@@ -38,41 +37,7 @@ public class JpqlMain {
 
 
 
-    private static void typeQuery(EntityManager em) {
-        TypedQuery<Member> query1 = em.createQuery("SELECT m FROM Member m", Member.class);
-        List<Member> resultList = query1.getResultList();
 
-        System.out.println("=============== typeQuery.query1 ==============");
-        for (Member member : resultList) {
-            System.out.println("member = " + member);
-        }
-        System.out.println("=============== typeQuery.query1 ==============");
-
-        TypedQuery<String> query2 = em.createQuery("select m.username  from Member m", String.class);
-        List<String> resultList2 = query2.getResultList();
-
-        System.out.println("=============== typeQuery.query2 ==============");
-        for (String string : resultList2) {
-            System.out.println(string);
-        }
-        System.out.println("=============== typeQuery.query2 ==============");
-        Query query3 = em.createQuery("select m.username, m.age from Member m");
-        List resultList3 = query3.getResultList();
-
-        System.out.println("=============== typeQuery.query3 ==============");
-        for (Object o : resultList3) {
-            Object[] result = (Object[]) o;
-            System.out.println("name = " + result[0] + ", age = " + result[1]);
-        }
-        System.out.println("=============== typeQuery.query3 ==============");
-
-        TypedQuery<Member> query4 = em.createQuery("select m FROM Member m WHERE username = :username", Member.class);
-        Member resultList4 = query4.setParameter("username", "member1").getSingleResult();
-        System.out.println("=============== typeQuery.query4 ==============");
-        System.out.println(resultList4);
-        System.out.println("=============== typeQuery.query4 ==============");
-
-    }
 
     private static void parameterBinding(EntityManager em) {
         Member result = em.createQuery("select m from Member m where m.username= :username", Member.class)
