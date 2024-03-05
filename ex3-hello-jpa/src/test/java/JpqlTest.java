@@ -195,17 +195,18 @@ public class JpqlTest {
         Member findMember3 = em.find(Member.class, 12L);
         findMember3.changeTeam(newTeam);
 
-
         System.out.println("================== collection fetchJoin ===================");
         List<Team> result2 =
-                em.createQuery("select t From Team t join  t.members where t.name ='팀B'", Team.class)
+                em.createQuery("select t From Team t join fetch t.members where t.name ='팀B'", Team.class)
                         .getResultList();
+
         for (Team team : result2) {
-            System.out.println("team = " + team.getName() + " | members = " + team.getMembers().size());
+            System.out.println("teamName = " + team.getName() + " | team = " + team);
             for (Member member : team.getMembers()) {
                 System.out.println("-> member = " + member);
             }
             System.out.println();
+            assertThat(team.getMembers().size(),is(3));
         }
     }
 
