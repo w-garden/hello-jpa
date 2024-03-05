@@ -34,11 +34,11 @@ public class Member {
         this.team=team;
         team.getMembers().add(this);
     }
-    @Override
-    public String toString() {
-        return  "id : " + id +
-                ", username : '" + username + '\'' +
-                ", age : " + age
-                ;
-    }
+//    @Override
+//    public String toString() {
+//        return  "id : " + id +
+//                ", username : '" + username + '\'' +
+//                ", age : " + age
+//                ;
+//    }
 }

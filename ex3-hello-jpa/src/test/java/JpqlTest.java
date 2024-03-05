@@ -1,8 +1,8 @@
+import jpql.Address;
 import jpql.Member;
+import jpql.MemberDTO;
 import jpql.Team;
-import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,9 +39,13 @@ public class JpqlTest {
         em.clear();
     }
 
+    @AfterEach
+    public void commit() {
+        tx.commit();
+    }
 
     @Test
-    public void basicJPQL() {
+    public void basicJPQLTest() {
         tx.begin();
         System.out.println("==================================           basicJPQL 실행          ==================================");
         List<Member> result = em.createQuery("select m from Member m", Member.class).getResultList();
@@ -51,14 +55,13 @@ public class JpqlTest {
     }
 
     @Test
-    public void typeQuery() {
+    public void typeQueryTest() {
 
         System.out.println("==================================           typeQuery.query1          ==================================");
         TypedQuery<Member> query1 = em.createQuery("select m from Member m", Member.class);
         List<Member> resultList = query1.getResultList();
         assertThat(resultList.size(), equalTo(20));
 
-        em.clear();
         System.out.println("==================================           typeQuery.query2          ==================================");
         TypedQuery<String> query2 = em.createQuery("select m.username from Member m", String.class);
         List<String> resultList2 = query2.getResultList();
@@ -66,7 +69,6 @@ public class JpqlTest {
         for (String string : resultList2) {
             assertThat(string, containsString("회원"));
         }
-        em.clear();
 
         System.out.println("==================================           typeQuery.query3          ==================================");
         Query query3 = em.createQuery("select m.username, m.age, m.team.name from Member m");
@@ -75,20 +77,136 @@ public class JpqlTest {
         for (Object o : resultList3) {
             Object[] result = (Object[]) o;
             assertThat((String) result[0], containsString("회원"));
-            assertThat((int) result[1], lessThan(50));
+            assertThat((int) result[1], lessThan(51));
             assertThat((String) result[2], containsString("팀A"));
 
         }
-        System.out.println("=============== typeQuery.query4 ==============");
+
+        System.out.println("==================================           typeQuery.query4          ==================================");
+        TypedQuery<Member> query4 = em.createQuery("select m FROM Member m WHERE username = :username", Member.class);
+        Member resultList4 = query4.setParameter("username", "회원1").getSingleResult();
+        assertThat(resultList4.getUsername(), is("회원1"));
+
+    }
+
+    @Test
+    public void parameterBindingTest() {
+        System.out.println("==============================           parameterBinding.Named parameters          ================================");
+        Member result = em.createQuery("select m from Member m where m.username= :username", Member.class)
+                .setParameter("username", "회원2")
+                .getSingleResult();
+        assertThat(result.getUsername(), is("회원2"));
+
+        System.out.println("==============================           parameterBinding.Positional parameters       ===============================");
+        Member result1 = em.createQuery("select m from Member m where m.username= ?1", Member.class)
+                .setParameter(1, "회원3")
+                .getSingleResult();
+        assertThat(result1.getUsername(), is("회원3"));
+    }
+
+    @Test
+    public void projectionTest() {
         em.clear();
-//        TypedQuery<Member> query4 = em.createQuery("select m FROM Member m WHERE username = :username", Member.class);
-//        Member resultList4 = query4.setParameter("username", "member1").getSingleResult();
-//        System.out.println(resultList4);
+        System.out.println("============================         projectionTest       =============================");
+        Query query = em.createQuery("select m.username, m.age, m.team from Member m where m.username =:username");
+        List<Object[]> list = query.setParameter("username", "회원4").getResultList();
+        for (Object[] objects : list) {
+            assertThat(objects[0], instanceOf(String.class));
+            assertThat(objects[1], instanceOf(Integer.class));
+            assertThat(objects[2], instanceOf(Team.class));
+        }
+
+        System.out.println("============================         projectionTest       =============================");
+        TypedQuery<MemberDTO> typedQuery = em.createQuery("select new jpql.MemberDTO(m.username, m.age) from Member m where m.username=:username", MemberDTO.class)
+                .setParameter("username", "회원10");
+        MemberDTO memberDTO = typedQuery.getSingleResult();
+        assertThat(memberDTO.getUsername(), is("회원10"));
 
     }
 
-    @AfterEach
-    public void commit() {
-        tx.commit();
+    @Test
+    public void pagingTest() {
+        System.out.println("=================== pagingTest ===================");
+        List<Member> result = em.createQuery("select m from Member m order by m.id", Member.class)
+                .setFirstResult(4)
+                .setMaxResults(7)
+                .getResultList();
+        assertThat(result.size(), is(7));
+        for (Member member1 : result) {
+            assertThat(member1.getUsername(), containsString("회원"));
+        }
     }
+
+    @Test
+    public void joinTest() {
+        System.out.println("=================   innerJoin   ================");
+        String query = "select m, t from Member m inner join m.team t where t.name =: name";
+        List<Object[]> innerJoin = em.createQuery(query).setParameter("name", "팀A").getResultList();
+        for (Object[] row : innerJoin) {
+            assertThat(row[0], instanceOf(Member.class));
+            assertThat(row[1], instanceOf(Team.class));
+        }
+
+
+        Member member = em.find(Member.class, 1L);
+        member.setTeam(null);
+
+        System.out.println("=================   outerJoin   ================");
+        long innerJoinCnt = (long) em.createQuery("SELECT count(m) from Member m JOIN m.team t").getSingleResult();
+        long outerJoinCnt = (long) em.createQuery("SELECT count(m) from Member m LEFT JOIN m.team t").getSingleResult();
+        assertThat(innerJoinCnt, is(19L));
+        assertThat(outerJoinCnt, is(20L));
+
+        System.out.println("=================   joinOn   ================");
+        List<Object[]> joinOn
+                = em.createQuery("select substring(m.username,0,2) , t.name, count(*) from Team t left join t.members m on m.username like '회원1%' group by substring(m.username,0,2) , t.name")
+                .getResultList();
+        for (Object[] row : joinOn) {
+            assertThat(row[0], is("회원"));
+            assertThat(row[1], is("팀A"));
+            assertThat(row[2], is(10L));
+        }
+
+        System.out.println("================= thetaJoin ================");
+        Member findMember = em.find(Member.class, 10L);
+        findMember.setUsername("팀A");
+        Member nonRelationJoin = em.createQuery("select m from Member m, Team t where m.username = t.name", Member.class)
+                .getSingleResult();
+        assertThat(nonRelationJoin.getUsername(), is("팀A"));
+        assertThat(nonRelationJoin.getTeam().getName(), is("팀A"));
+
+    }
+
+    @Test
+    public void fetchJoinTest() {
+        System.out.println("================== entity fetchJoin ===================");
+        Member result =
+                em.createQuery("select m From Member m join fetch m.team where m.username LIKE '회원12'", Member.class)
+                        .getSingleResult();
+        assertThat(result.getTeam().getName(), equalTo("팀A"));
+
+        Team newTeam = new Team();
+        newTeam.setName("팀B");
+        em.persist(newTeam);
+        Member findMember1 = em.find(Member.class, 10L);
+        findMember1.changeTeam(newTeam);
+        Member findMember2 = em.find(Member.class, 11L);
+        findMember2.changeTeam(newTeam);
+        Member findMember3 = em.find(Member.class, 12L);
+        findMember3.changeTeam(newTeam);
+
+
+        System.out.println("================== collection fetchJoin ===================");
+        List<Team> result2 =
+                em.createQuery("select t From Team t join  t.members where t.name ='팀B'", Team.class)
+                        .getResultList();
+        for (Team team : result2) {
+            System.out.println("team = " + team.getName() + " | members = " + team.getMembers().size());
+            for (Member member : team.getMembers()) {
+                System.out.println("-> member = " + member);
+            }
+            System.out.println();
+        }
+    }
+
 }

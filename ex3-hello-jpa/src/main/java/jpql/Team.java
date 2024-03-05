@@ -20,11 +20,11 @@ public class Team {
     @OneToMany(mappedBy = "team")
     List<Member> members = new ArrayList<>();
 
-    @Override
-    public String toString() {
-        return "Team {" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Team {" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                '}';
+//    }
 }
