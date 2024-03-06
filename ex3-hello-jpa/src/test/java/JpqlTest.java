@@ -4,6 +4,7 @@ import jpql.MemberDTO;
 import jpql.Team;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.*;
@@ -206,8 +207,58 @@ public class JpqlTest {
                 System.out.println("-> member = " + member);
             }
             System.out.println();
-            assertThat(team.getMembers().size(),is(3));
+            assertThat(team.getMembers().size(), is(3));
         }
     }
+
+    @Test
+    @DisplayName("기본키 엔티티 파라미터와 PK 파라미터")
+    public void primaryKeyValueTest() {
+        Member member = em.find(Member.class, 5L);
+        System.out.println("================== entity parameter  ===================");
+        List resultList = em.createQuery("select m from Member m where m=:member").setParameter("member", member)
+                .getResultList();
+        System.out.println("================== primary key parameter  ===================");
+        List resultList1 = em.createQuery("select m from Member m where m.id=:memberId").setParameter("memberId", 5L)
+                .getResultList();
+        assertThat(resultList, equalTo(resultList1));
+    }
+
+    @Test
+    @DisplayName("외래키 엔티티 파라미터와 PK 파라미터")
+    public void foreignKeyValueTest() {
+        Team team = em.find(Team.class, 1L);
+
+        List resultList = em.createQuery("select m from Member m where m.team =:team").setParameter("team", team)
+                .getResultList();
+        List resultList1 = em.createQuery("select m from Member m where m.team.id=:teamId").setParameter("teamId", 1L)
+                .getResultList();
+        assertThat(resultList, equalTo(resultList1));
+    }
+
+    @Test
+    public void namedQueryTest() {
+        System.out.println("==================   named Query Annotation Test  ===================");
+        Member member = em.createNamedQuery("Member.findByUsername", Member.class)
+                .setParameter("username", "회원1")
+                .getSingleResult();
+        assertThat(member.getUsername(),is("회원1"));
+
+        long count = em.createNamedQuery("Member.totalCount", Long.class)
+                .getSingleResult();
+        assertThat(count,is(20L));
+
+        System.out.println("==================   named Query XML Test  ===================");
+        List<Team> resultList = em.createNamedQuery("Team.findByTeamName", Team.class).setParameter("name", "팀1")
+                .getResultList();
+        for (Team team : resultList) {
+            assertThat(team.getName(),is("팀1"));
+        }
+        Long singleResult = em.createNamedQuery("Team.totalCount", Long.class).getSingleResult();
+        assertThat(singleResult,is(1L));
+
+
+    }
+
 
 }

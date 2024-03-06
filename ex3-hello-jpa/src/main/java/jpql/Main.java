@@ -15,42 +15,20 @@ public class Main {
         try{
             Criteria_기본(em);
 //            NativeSQL(em);
-            /**
-             * 조인
-             * 1. 내부조인 : SELECT m FROM Member m [INNER] JOIN m.team t
-             * 2. 외부조인 : SELECT m FROM Member m LEFT JOIN m.team t
-             * 3. 세타조인 : SELECT count(m) from Member m, Team t where m.username = t.name
-             */
 
 
-//            JPQL타입표현_ENUM(em);
-//            조건식(em);
+            JPQL타입표현_ENUM(em);
+            조건식(em);
             /**
              * JPQL 기본함수
              * CONCAT, SUBSTRING, TRIM
              * LOWER, UPPER, LENGTH, LOCATE, ABS, SQRT, MOD
              * SIZE, INDEX(JPA용도)
              */
-//           기본함수(em);
-            /**
-             * Fetch Join
-             * - 연관된 엔티티나 컬렉션을 SQL 한 번에 함께 조회 - 성능최적화
-             * - 엔티티에 직접 적용하는 글로벌 로딩 전략보다 우선함
-             * - 예)
-             *     JPQL : select m from Member m join fetch m.team
-             *     SQL  : SELECT M.*, T.* FROM MEMBER M INNER JOIN TEAM T ON M.TEAM_ID=T.ID
-             */
+           기본함수(em);
 
-//          FETCH_조인(em);
 
-            /**
-             * Named 쿼리
-             * 1. 미리 정의해서 이름을 부여해두고 사용하는 JPQL
-             * 2. 정적쿼리
-             * 3. 어노테이션, XML
-             * 4. 어플리케이션 로딩시 점에 초기화 후 재사용
-             */
-            Named쿼리(em);
+
 
             /**
              * 벌크연산
@@ -90,23 +68,7 @@ public class Main {
         System.out.println("result = " + result);
     }
 
-    private static void Named쿼리(EntityManager em) {
-        Team teamA = new Team();
-        teamA.setName("팀A");
-        em.persist(teamA);
 
-        Member member1 = new Member();
-        member1.setUsername("회원1");
-        member1.setTeam(teamA);
-        em.persist(member1);
-
-        List<Member> result = em.createNamedQuery("Member.findByUsername", Member.class)
-                .setParameter("username", "회원1")
-                .getResultList();
-        for (Member member : result) {
-            System.out.println("member = " + member);
-        }
-    }
 
 
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" version="2.2">
+    <named-query name="Team.findByTeamName">
+        <query>
+            <![CDATA[
+            select t
+            from Team t
+            where t.name = :name
+            ]]>
+        </query>
+    </named-query>
+    <named-query name="Team.totalCount">
+        <query>
+            select count(*)
+            from Team t
+        </query>
+    </named-query>
+
+</entity-mappings>

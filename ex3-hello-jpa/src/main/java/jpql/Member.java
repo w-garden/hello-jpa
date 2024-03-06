@@ -6,14 +6,19 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@NamedQuery(
-        name="Member.findByUsername",
-        query = "select m from Member m where m.username=:username"
-)
+@NamedQueries({
+        @NamedQuery(
+                name = "Member.findByUsername",
+                query = "select m from Member m where m.username=:username"),
+        @NamedQuery(
+                name = "Member.totalCount",
+                query = "select count(m) from Member m")
+})
 @Getter
 @Setter
 public class Member {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MEMBER_ID")
     private Long id;
 
@@ -23,7 +28,7 @@ public class Member {
     private int age;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="TEAM_ID")
+    @JoinColumn(name = "TEAM_ID")
     private Team team;
 
     @Enumerated(EnumType.STRING)
@@ -31,7 +36,7 @@ public class Member {
 
 
     public void changeTeam(Team team) {
-        this.team=team;
+        this.team = team;
         team.getMembers().add(this);
     }
 //    @Override
