@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.persistence.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static jpql.MemberType.USER;
@@ -242,23 +243,74 @@ public class JpqlTest {
         Member member = em.createNamedQuery("Member.findByUsername", Member.class)
                 .setParameter("username", "회원1")
                 .getSingleResult();
-        assertThat(member.getUsername(),is("회원1"));
+        assertThat(member.getUsername(), is("회원1"));
 
         long count = em.createNamedQuery("Member.totalCount", Long.class)
                 .getSingleResult();
-        assertThat(count,is(20L));
+        assertThat(count, is(20L));
 
         System.out.println("==================   named Query XML Test  ===================");
         List<Team> resultList = em.createNamedQuery("Team.findByTeamName", Team.class).setParameter("name", "팀1")
                 .getResultList();
         for (Team team : resultList) {
-            assertThat(team.getName(),is("팀1"));
+            assertThat(team.getName(), is("팀1"));
         }
         Long singleResult = em.createNamedQuery("Team.totalCount", Long.class).getSingleResult();
-        assertThat(singleResult,is(1L));
+        assertThat(singleResult, is(1L));
 
 
     }
 
+    /**
+     * JPQL 기본함수
+     * CONCAT, SUBSTRING, TRIM
+     * LOWER, UPPER, LENGTH, LOCATE, ABS, SQRT, MOD
+     * SIZE, INDEX(JPA용도)
+     */
+
+    @Test
+    public void functionTest() {
+        String query1 = "select 'a' || 'b' From Member m";
+        String query2 = "select SIZE(t.members) From Team t";
+
+        String query3 = "select locate('ef', 'abcdef') From Member m"; //1부터 시작
+        String query4 = "select UPPER('hochul') From Member m";
+        System.out.println("===================    query1    ==================");
+        String result1 = em.createQuery(query1, String.class).getSingleResult();
+        assertThat(result1, equalTo("ab"));
+
+        System.out.println("===================    query2    ==================");
+        List<Object[]> result2 =  em.createQuery("select SIZE(t.members), t.name From Team t").getResultList(); //확인 해야함
+        for (Object[] objects : result2) {
+            assertThat(objects[0], is(20));
+            assertThat(objects[1], equalTo("팀A"));
+        }
+
+        System.out.println("===================    query3    ==================");
+        int result3 = em.createQuery(query3, Integer.class).getSingleResult();
+        assertThat(result3, is(5));
+
+        System.out.println("===================    query4    ==================");
+        String result4 = em.createQuery(query4, String.class).getSingleResult();
+        assertThat(result4, equalTo("HOCHUL"));
+
+    }
+
+    @Test
+    public void 조건식() {
+        //CASE
+        String query1 = "select case when m.age <= 10 then '학생요금' when m.age>= 60  then '경로요금'" +
+                " else '일반요금' end from Member m";
+        //coalesce
+        String query2 = "select coalesce(m.username, '이름 없는 회원') from Member m";
+        //NULLIF
+        String query3 = "select nullif(m.username, '관리자')  as name from Member m";
+
+        List<String> result = em.createQuery(query3, String.class).getResultList();
+        for (String s : result) {
+            System.out.println("s = " + s);
+
+        }
+    }
 
 }

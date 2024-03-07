@@ -14,18 +14,10 @@ public class Main {
         tx.begin();
         try{
             Criteria_기본(em);
-//            NativeSQL(em);
+            NativeSQL(em);
 
 
             JPQL타입표현_ENUM(em);
-            조건식(em);
-            /**
-             * JPQL 기본함수
-             * CONCAT, SUBSTRING, TRIM
-             * LOWER, UPPER, LENGTH, LOCATE, ABS, SQRT, MOD
-             * SIZE, INDEX(JPA용도)
-             */
-           기본함수(em);
 
 
 
@@ -72,32 +64,9 @@ public class Main {
 
 
 
-    private static void 기본함수(EntityManager em) {
-        String query1 = "select 'a' || 'b' From Member m";
-        String query2 = "select concat('a', 'b') From Member m";
-        String query3 = "select locate('de', 'abcdef') From Member m";
 
-        List<Integer> result = em.createQuery(query3, Integer.class).getResultList();
-        for (Integer s : result) {
-            System.out.println("s = " + s);
-        }
-    }
 
-    private static void 조건식(EntityManager em) {
-        //CASE
-        String query1 = "select case when m.age <= 10 then '학생요금' when m.age>= 60  then '경로요금'" +
-                " else '일반요금' end from Member m";
-        //coalesce
-        String query2 = "select coalesce(m.username, '이름 없는 회원') from Member m";
-        //NULLIF
-        String query3 = "select nullif(m.username, '관리자')  as name from Member m";
 
-        List<String> result = em.createQuery(query3, String.class).getResultList();
-        for (String s : result) {
-            System.out.println("s = " + s);
-
-        }
-    }
 
     private static void JPQL타입표현_ENUM(EntityManager em) {
         String query = "select m.username, 'HELLO', true From Member m where m.type=:userType";
@@ -121,9 +90,9 @@ public class Main {
 
 
 
-//    private static void NativeSQL(EntityManager em) {
-//        em.createNativeQuery("select * from Member").getResultList();
-//    }
+    private static void NativeSQL(EntityManager em) {
+        em.createNativeQuery("select * from Member").getResultList();
+    }
 
     private static void Criteria_기본(EntityManager em) {
         //Criteria 사용준비
