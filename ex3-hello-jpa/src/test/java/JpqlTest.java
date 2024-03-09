@@ -46,7 +46,6 @@ public class JpqlTest {
 
     @Test
     public void basicJPQLTest() {
-        tx.begin();
         System.out.println("==================================           basicJPQL 실행          ==================================");
         List<Member> result = em.createQuery("select m from Member m", Member.class).getResultList();
         assertThat(result.size(), equalTo(20));

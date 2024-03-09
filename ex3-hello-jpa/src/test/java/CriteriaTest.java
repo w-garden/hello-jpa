@@ -75,6 +75,7 @@ public class CriteriaTest {
         }
 
 
+//        Predicate ageGT = cb.greaterThan(m.<Integer>get("age"), 20);
         Predicate ageGT = cb.greaterThan(m.<Integer>get("age"), 20);
 
         cq.select(m);
