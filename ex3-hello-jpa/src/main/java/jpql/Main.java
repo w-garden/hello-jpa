@@ -13,7 +13,6 @@ public class Main {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try{
-            Criteria_기본(em);
             NativeSQL(em);
 
 
@@ -94,19 +93,7 @@ public class Main {
         em.createNativeQuery("select * from Member").getResultList();
     }
 
-    private static void Criteria_기본(EntityManager em) {
-        //Criteria 사용준비
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Member> query = cb.createQuery(Member.class);
 
-        Root<Member> m = query.from(Member.class);
-        CriteriaQuery<Member> cq = query.select(m);
-        String username = "aaa";
-        if (username != null) {
-            cq = cq.where(cb.equal(m.get("username"), "kim"));
-        }
-        List<Member> resultList = em.createQuery(cq).getResultList();
-    }
 
 
 }

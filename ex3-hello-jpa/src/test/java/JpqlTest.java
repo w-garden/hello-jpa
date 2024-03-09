@@ -1,4 +1,3 @@
-import jpql.Address;
 import jpql.Member;
 import jpql.MemberDTO;
 import jpql.Team;
@@ -9,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import javax.persistence.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static jpql.MemberType.USER;
