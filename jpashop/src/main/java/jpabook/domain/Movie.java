@@ -1,8 +1,8 @@
-package jpabook.jpashop.domain;
+package jpabook.domain;
 
-import javax.persistence.Entity;
+import jakarta.persistence.*;
 
-@Entity
+//@Entity
 public class Movie extends Item {
     private String director;
     private String actor;

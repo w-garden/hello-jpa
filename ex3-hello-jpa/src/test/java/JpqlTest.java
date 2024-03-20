@@ -146,7 +146,6 @@ public class JpqlTest {
             assertThat(row[1], instanceOf(Team.class));
         }
 
-
         Member member = em.find(Member.class, 1L);
         member.setTeam(null);
 

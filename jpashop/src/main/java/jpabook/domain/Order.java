@@ -1,17 +1,17 @@
-package jpabook.jpashop.domain;
+package jpabook.domain;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.LAZY;
+import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.FetchType.LAZY;
 
-@Entity
+//@Entity
 @Getter
 @Setter
 @Table(name ="ORDERS")

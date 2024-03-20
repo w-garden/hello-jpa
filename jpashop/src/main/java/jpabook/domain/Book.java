@@ -1,11 +1,12 @@
-package jpabook.jpashop.domain;
+package jpabook.domain;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
-@Entity
+
+//@Entity
 @Getter
 @Setter
 public class Book extends Item {

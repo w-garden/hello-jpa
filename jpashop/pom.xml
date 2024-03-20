@@ -7,6 +7,7 @@
     <groupId>jpabook</groupId>
     <artifactId>jpashop</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>jpashop</name>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -15,18 +16,90 @@
     </properties>
 
     <dependencies>
-        <!-- JPA 하이버네이트 -->
+        <!-- 스프링 MVC -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>6.0.13</version>
+        </dependency>
+
+        <!-- 스프링 ORM -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>6.0.13</version>
+        </dependency>
+
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.4.13.Final</version>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.2.13.Final</version>
         </dependency>
+
         <!-- H2 데이터베이스 -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>1.4.200</version>
         </dependency>
+
+
+        <!-- 커넥션 풀 -->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jdbc</artifactId>
+            <version>7.0.57</version>
+            <scope>compile</scope>
+        </dependency>
+
+
+        <!-- WEB -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>javax.servlet.jsp</groupId>-->
+        <!--            <artifactId>jsp-api</artifactId>-->
+        <!--            <version>2.1</version>-->
+        <!--        </dependency>-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>jakarta.annotation</groupId>-->
+        <!--            <artifactId>jakarta.annotation-api</artifactId>-->
+        <!--            <version>2.1.1</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>jakarta.persistence</groupId>-->
+        <!--            <artifactId>jakarta.persistence-api</artifactId>-->
+        <!--            <version>3.1.0</version>-->
+        <!--        </dependency>-->
+
+        <!-- 로깅 SLF4F & LogBack -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.slf4j</groupId>`-->
+        <!--            <artifactId>slf4j-api</artifactId>-->
+        <!--            <version>1.7.6</version>-->
+        <!--            <scope>compile</scope>-->
+        <!--        </dependency>-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>ch.qos.logback</groupId>-->
+        <!--            <artifactId>logback-classic</artifactId>-->
+        <!--            <version>1.4.14</version>-->
+        <!--            <scope>runtime</scope>-->
+        <!--        </dependency>-->
+
+        <!-- 테스트 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>6.0.13</version>
+        </dependency>
+
+
         <!--Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -34,6 +107,18 @@
             <version>1.18.20</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <!--            <scope>compile</scope>-->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.12.0</version>
+        </dependency>
+
     </dependencies>
 
 </project>

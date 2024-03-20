@@ -1,13 +1,13 @@
-package jpabook.jpashop.domain;
+package jpabook.domain;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
-import static javax.persistence.FetchType.LAZY;
+import static jakarta.persistence.FetchType.LAZY;
 
-@Entity
+//@Entity
 @Getter
 @Setter
 public class Delivery extends BaseEntity{
