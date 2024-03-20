@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import jakarta.persistence.Entity;
 
-//@Entity
+@Entity
 @Getter
 @Setter
 public class Album extends Item {

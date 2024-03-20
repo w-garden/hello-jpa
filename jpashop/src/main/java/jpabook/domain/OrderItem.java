@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 
 import static jakarta.persistence.FetchType.LAZY;
 
-//@Entity
+@Entity
 @Getter
 @Setter
 public class OrderItem extends BaseEntity {

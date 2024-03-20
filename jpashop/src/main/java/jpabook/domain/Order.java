@@ -11,7 +11,7 @@ import java.util.List;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.LAZY;
 
-//@Entity
+@Entity
 @Getter
 @Setter
 @Table(name ="ORDERS")

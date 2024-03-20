@@ -10,7 +10,7 @@ import java.util.List;
 import static jakarta.persistence.FetchType.LAZY;
 
 
-//@Entity
+@Entity
 @Getter
 @Setter
 public class Category extends BaseEntity {

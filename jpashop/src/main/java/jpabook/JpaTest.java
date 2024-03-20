@@ -39,10 +39,10 @@ public class JpaTest {
 //        }
 
         Member member = new Member();
-        member.setId(111L);
+//        member.setId(111L);
         member.setName("신호철");
         em.persist(member);
-        Member member1 = em.find(Member.class, 111L);
+        Member member1 = em.find(Member.class, 1L);
         System.out.println(member1.getName());
 
 

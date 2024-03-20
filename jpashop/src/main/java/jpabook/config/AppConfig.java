@@ -37,12 +37,10 @@ public class AppConfig {
     private Properties jpaProperties() {
         Properties pros = new Properties();
 //        pros.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        pros.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
         pros.setProperty("hibernate.show_sql","true");
         pros.setProperty("hibernate.format_sql","true");
         pros.setProperty("hibernate.use_sql_comments","true");
         pros.setProperty("hibernate.hbm2ddl.auto","create");
-        //org.hibernate.engine.jdbc.env.spi.JdbcEnvironment
         return pros;
     }
 

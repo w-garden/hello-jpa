@@ -10,8 +10,8 @@
     <name>jpashop</name>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -43,39 +43,6 @@
             <version>1.4.200</version>
         </dependency>
 
-
-        <!-- 커넥션 풀 -->
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jdbc</artifactId>
-            <version>7.0.57</version>
-            <scope>compile</scope>
-        </dependency>
-
-
-        <!-- WEB -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>javax.servlet.jsp</groupId>-->
-        <!--            <artifactId>jsp-api</artifactId>-->
-        <!--            <version>2.1</version>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>jakarta.annotation</groupId>-->
-        <!--            <artifactId>jakarta.annotation-api</artifactId>-->
-        <!--            <version>2.1.1</version>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>jakarta.persistence</groupId>-->
-        <!--            <artifactId>jakarta.persistence-api</artifactId>-->
-        <!--            <version>3.1.0</version>-->
-        <!--        </dependency>-->
 
         <!-- 로깅 SLF4F & LogBack -->
         <!--        <dependency>-->
@@ -113,12 +80,6 @@
             <version>4.13.2</version>
             <!--            <scope>compile</scope>-->
         </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-dbcp2</artifactId>
-            <version>2.12.0</version>
-        </dependency>
-
     </dependencies>
 
 </project>
